@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tiles_sheet_2" tilewidth="64" tileheight="64">
+  <image source="../../Relaxum/lua/assets/sheets/tiles_sheet_2.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="257" name="tiles_sheet_1" tilewidth="64" tileheight="64">
+  <image source="../../Relaxum/lua/assets/sheets/tiles_sheet_1.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="back" width="50" height="50">
+  <properties>
+   <property name="parallax_x" value="0.3"/>
+   <property name="sheet" value="tiles_sheet_2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt1kVSQ1EUhOGHu7tLgODu7gQP7u5OgA0gG0A2gCyUv4olMOlXdQbfoAdn1n3rBhzHucM9HhBwaX7EE57x4uL8ije848PF+RNf+MaPi7NKv20ftg/FrNJv24ftQzGr9Nv2YftQzCr9tn3YPhSzSr9tH7YPxazSb9uH7UMxq/Tb9mH7UMwq/bZ92D4Us0q/bR+2D8Ws0u//5iAEIwShCEM4IhCJKEQjBrGIQzwSkCh0n4RkpCAVaUhHBjKRhWzkIBd5yEcBCoXui1AMD0pQijJ4UY4KVKIK1ahBLepQL3TfgEY0oRktaEUb2tGBTnShGz3oRR/6he4HMIghDGMEoxiDD+OYwCSmMI0ZzMIvdD+HeSxgEUtYxgpWsYZ1bGATW9jGDnaF7vewjwMc4gjHOMEpznCOC1ziCte4wa3Qvcr7b/+rv/wLAfrNAw==
+  </data>
+ </layer>
+ <layer name="mountains" width="50" height="50">
+  <properties>
+   <property name="parallax_x" value="0.6"/>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzty1c7lwEAh+H3//2PJBWSQvZIC5nZm7Iys8nKR3B/Aefvwe+5rvvwKYqUUkoppZRSSimllFJKKaWUUkoppZSer6pSFC+o5iU1vOI1b6iljnre0sA7GnlfKc//gSaaaeEjrbTRTgeddNFND7308alEfz+f+cJXvvGdAQYZ4gfDjDDKGONMlOj/ySRTTDPDLHPMs8AiSyyzwiprrJfo/8VvNthki212+MMue+xzwCFH/OW4RP8Jp5xxzgWXXHHNP2645Y57HvjPY4n+J7+L4m8=
+  </data>
+ </layer>
+ <layer name="clouds1" width="50" height="50">
+  <properties>
+   <property name="scroll_x" value="1.3"/>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt1U0OgjAUAOGSqKhrFWUtP3r/AzonICSF+tD5ktmxaMlrm5Kkf7OrUtrTgWo60onO1bbWceG7K92ooTs9qC28j9x1PPmuo54GGulF78L7+NY6osxjrijzmCvKPErSknxrYvGtkWcyFs+ktsB7IxbvjXmc21ic2/U589NK/5+1Zt474Xd4ZmNxJiVJWt4H5nkTsQ==
+  </data>
+ </layer>
+ <layer name="fog" width="50" height="50">
+  <properties>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzty1dOAgEAANHdI9KkCUoRpKPSQQWkStEjM8dYkpnkfU4QmJmZmZmZmZmZmZmZmZmZmZnZvRQLgyCOBJJI4QFpZJBFDnk8ooAinvAcRucvoYwKqnhBDXW8ooEmWmijgy566Efof8M7PjDAECOMMcEUM8yxwCe+8I1lhP4V1vjBBlvssMcBR/zihDMuuOIP/xH6b7QKWHU=
+  </data>
+ </layer>
+ <layer name="margin" width="50" height="50">
+  <properties>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztxoEJACAMBLHvXOr+a9U1ShM4uAQAAAAAAAAAAIDNTiX392r2N+XOC+o=
+  </data>
+ </layer>
+</map>

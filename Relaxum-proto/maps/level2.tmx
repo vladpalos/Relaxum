@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="18" height="12" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tiles_sheet_2" tilewidth="64" tileheight="64">
+  <image source="../../Relaxum/lua/assets/sheets/tiles_sheet_2.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="257" name="tiles_sheet_1" tilewidth="64" tileheight="64">
+  <image source="../../Relaxum/lua/assets/sheets/tiles_sheet_1.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="back" width="18" height="12">
+  <properties>
+   <property name="parallax_x" value="0.3"/>
+   <property name="sheet" value="tiles_sheet_2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJyt0kVClQEAhdFHd4eUgISEhHSopISBdEh3gxIbUNzAEzYgslDO8B/zGJzBHXyzGw6FQn+55Y7wE/c/7vnPQwT7gkuuuI5gRxFNDLHEEU8CiSSRTAqppJFOBpmBPotscsglj3xeUEAhRRRTwktKKaM80L+igkqqqOY1NdRSRz1vaKCRJpp5G+hbaKWNdjropItueujlHe/5QB/9DAT6QYYY5iMjjDLGOJ/4zBe+MsE3JpkK9NPMMMsc8yywyBLfWWaFVdZYZ4PNQL/FNjvsssc+BxxyxDEnnHLGOT/4Geif6z+/+M0NfyLYj0WBSmU=
+  </data>
+ </layer>
+ <layer name="mountains" width="18" height="12">
+  <properties>
+   <property name="parallax_x" value="0.6"/>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzty9VSQlEAQNF7LWxBxVYsBLG7UAzs7o7//wrWm+cXnHHPrMcdRf/9peI4iqqopoZa6khQTwONNNFMC620kYx//xTtdNBJmi666aGXPvoZYJAhMgwH/wijjDFOlgly5JmkwBTTzDDLHPPBv8AiSyyzwiprrLPBJlsU2WaHErvBv8c+B5Q55IhjTjjljHMuuOSKa26C/5Y77nngkSeeeeGVN9754JMvvvkJ/grlmRSP
+  </data>
+ </layer>
+ <layer name="clouds2" width="18" height="12">
+  <properties>
+   <property name="scroll_x" value="1.5"/>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AU0AoAAANgAAE=
+  </data>
+ </layer>
+ <layer name="clouds1" width="18" height="12">
+  <properties>
+   <property name="scroll_x" value="1.3"/>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYKA+WMHIwLASiFcx4le3Bii/FojXAfF6IN6Apn4HkL8TiHcRMGcPUH4vEO8D4v1AfICA+lEwCugFAHFBC1M=
+  </data>
+ </layer>
+ <layer name="fog" width="18" height="12">
+  <properties>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzty0USwkAAAMHNU3GH4B4suD6ZvpEfcMlU9XFCyMv7f4UohCIlylSoUqNOgyYt2nTo0iOOfn+fAUNGjJkwZcacBUtWrEnYsM38O/YcSDly4syFKzfuPHjy4s0n838BSCwZeA==
+  </data>
+ </layer>
+ <layer name="solid" width="18" height="12">
+  <properties>
+   <property name="sheet" value="tiles_sheet_1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBiZYDUjBFNqBjY2KfYTwqS4YTCoIaSO0jCnFzgBdOdJID7FSBkbAKmZG6U=
+  </data>
+ </layer>
+ <objectgroup name="solid_objects" width="18" height="12">
+  <object type="solid" x="256" y="320" width="640" height="64"/>
+  <object type="solid" x="448" y="256" width="256" height="64"/>
+  <object type="solid" x="512" y="192" width="128" height="64"/>
+  <object type="solid" x="320" y="512" width="64" height="64"/>
+  <object type="solid" x="256" y="384" width="64" height="128"/>
+  <object type="solid" x="768" y="512" width="64" height="64"/>
+  <object type="solid" x="832" y="384" width="64" height="128"/>
+  <object type="spike" x="1" y="713" width="1152" height="64"/>
+ </objectgroup>
+</map>
