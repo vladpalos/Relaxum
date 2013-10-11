@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="spike" color="#000000"/>
+ <objecttype name="brick" color="#ffaa00"/>
+ <objecttype name="solid" color="#cbead4"/>
+ <objecttype name="scissors" color="#ff0004"/>
+</objecttypes>
