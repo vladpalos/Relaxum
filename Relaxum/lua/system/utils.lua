@@ -124,7 +124,26 @@ function M.bitOr( a, b, c, ... )
         return a
     end
 end
+----------------------------------------------------------------------------------------------------
+function M.print( obj, name )
 
+  if name then
+    io.write( "\nObject [" .. name .. " ] " )
+  else
+    io.write( "\nObject " )
+  end
+
+  if not obj then
+    io.write( "is NIL !" )
+    return
+  end
+
+  print()
+
+  for k, v in pairs( obj ) do
+    print( k,v )
+  end
+end
 ----------------------------------------------------------------------------------------------------
 return M
 

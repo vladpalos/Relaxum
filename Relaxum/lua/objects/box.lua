@@ -48,8 +48,11 @@ function M.add( conf )
     end
 end
 
+---------------------------------------------------------------------------------------------------
+-- Private Functions
+---------------------------------------------------------------------------------------------------
 
-function M.onCollision( ev, fixA, fixB, arbiter )
+function _onCollision( ev, fixA, fixB, arbiter )
 
     if ev == MOAIBox2DArbiter.BEGIN then
 

@@ -132,7 +132,7 @@ function debugLoop()
 	print( "\nCurrent rendering layers stack: " )
 	local rt = display.getAllLayers()
 
-	M.print( rt, "Render Table" )
+	utils.print( rt, "Render Table" )
 
 	print( "---------------------------------------------------------------" )
 	local memTable = MOAISim.getMemoryUsage()
@@ -163,25 +163,7 @@ function M.printDebugInfo()
 	debugLoop()
 end
 
-function M.print( obj, name )
 
-	if name then
-		io.write( "\nObject [" .. name .. " ] " )
-	else
-		io.write( "\nObject " )
-	end
-
-	if not obj then
-		io.write( "is NIL !" )
-		return
-	end
-
-	print()
-
-	for k, v in pairs( obj ) do
-		print( k,v )
-	end
-end
 
 
 function M.isArray( array )

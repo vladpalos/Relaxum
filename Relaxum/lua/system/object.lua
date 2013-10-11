@@ -60,12 +60,14 @@ function M.configSpeed( conf )
     return speedX, speedY
 end
 
-function M.addB2DEditorFixtures( name, body, category, mask, collisionHandler )
+
+-- This is used only for polygon-body-shaped. For other fixtures, you must manually add them (ex: Circle).
+function M.addB2DEditorFixtures( name, body, category, mask, collisionHandler, isSensor )
     local fixture
     for _, points in ipairs( resources.getPolys( name ) ) do
         fixture = body:addPolygon( points )  
 
-        fixture:setSensor( true )    
+        fixture:setSensor( isSensor or false )    
         if category or mask then 
             fixture:setFilter( category, mask )
         end
@@ -73,6 +75,9 @@ function M.addB2DEditorFixtures( name, body, category, mask, collisionHandler )
 	        fixture:setCollisionHandler( collisionHandler, 
     	                                 MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.END )
         end
+
+        fixture:setDensity( 10 )
+        fixture:setFriction( 0 )
     end
 end
 

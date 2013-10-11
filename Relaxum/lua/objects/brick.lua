@@ -28,7 +28,7 @@ function M.add( conf )
 
         body:setTransform( conf.x, conf.y )
 
-        local propCracked = resources.newSprite('brick1_cracked_'.. math.random( 2 ), layer, 0, 0 )
+        local propCracked = resources.newSprite( 'brick1_cracked_'.. math.random( 2 ), layer, 0, 0 )
         local prop = resources.newSprite( 'brick1', layer, 0, 0 )
 
 
@@ -37,7 +37,9 @@ function M.add( conf )
         propCracked:setVisible( false )
 
         fixture:setFilter( CATEGORY_OBSTACLE, MASK_OBSTACLE )
-        fixture:setCollisionHandler( M.onCollision, MOAIBox2DArbiter.PRE_SOLVE )
+        fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.PRE_SOLVE )
+
+        fixture:setFriction(1)
 
         body.type = conf.type
         body.conf = conf
@@ -60,7 +62,11 @@ function M.add( conf )
     end
 end
 
-function M.onCollision( ev, fixA, fixB, arbiter )
+---------------------------------------------------------------------------------------------------
+-- Private Functions
+---------------------------------------------------------------------------------------------------
+
+function _onCollision( ev, fixA, fixB, arbiter )
 
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
     if bodyA.type == "brick" and bodyB.type == "player" then

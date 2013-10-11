@@ -50,8 +50,8 @@ end
 
 function M.initPhysics()
 	world = MOAIBox2DWorld.new()
-    world:setGravity( 0, 0 )
-    world:setUnitsToMeters( 1 / 32 )
+    world:setGravity( GRAVITY_X, GRAVITY_Y )
+    world:setUnitsToMeters( 1 / 10 )
     world:start()
 
     --world:setIterations( 1 / DISPLAY_FPS, 1 / DISPLAY_FPS  )
@@ -300,6 +300,23 @@ end
 function M.getWorld()
 	return world
 end
+
+
+-- Clean -------------------------------------------------------------------------------------------
+
+function M.removeProps ( layer, props ) 
+    if props ~= nil then
+        if type(props) == 'table' then
+            for i, prop in ipairs(table) do
+                layer:removeProp( prop )
+            end
+        else
+            layer:removeProp( props )
+        end
+    end
+end
+
+
 
 ----------------------------------------------------------------------------------------------------
 return M
