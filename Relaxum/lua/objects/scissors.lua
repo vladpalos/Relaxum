@@ -8,8 +8,6 @@ local M = {}
 
 local VELOCITY_FACTOR = 25
 
-local updateThread-- Box2d doesn't accept body updates during collision handle so we lazy-update them
-
 local sheet, layer
 
 function M.load()
@@ -18,14 +16,16 @@ function M.load()
     resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
     resources.loadPolysSheet( "assets/physics/objects" )
 
-    stars = particles.new( "time", "assets/particles/glitter2.pex", layer )
+    updateThread = MOAICoroutine.new()
+
+    -- stars = particles.new( "time", "assets/particles/glitter2.pex", layer )
 end
 
 function M.add( conf )
 
     local body = display.addBody( MOAIBox2DBody.DYNAMIC, conf.x, conf.y )
 
-    object.addB2DEditorFixtures( "scissors_01", body, CATEGORY_GOOD, MASK_GOOD, M.onCollision )
+    object.addB2DEditorFixtures( "scissors_01", body, CATEGORY_BAD, MASK_BAD, M.onCollision )
 
     local scissorsTop = resources.newSprite('scissors_01_top', layer, -8, 0 )
     local scissorsBottom = resources.newSprite( 'scissors_01_bottom', layer, 0, 0 )
@@ -38,21 +38,23 @@ function M.add( conf )
 
     display.newSpanAnimation( scissorsTop, time, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,
                               -rot, rot, -rot) :start()
-    display.newSpanAnimation( scissorsBottom, time, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,
+    display.newSpanAnimation( scissorsBottom, time, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,        
                               rot, -rot, rot) :start()
 
-    local speedX = 0 -- math.random(2, 10)
-    local speedY = math.random(2, 5)
+    body.speedX = 0 -- math.random(2, 10)
+    body.speedY = 3 --math.random(2, 5)
 
-    body:setLinearVelocity( -speedX * VELOCITY_FACTOR,
-                            -speedY * VELOCITY_FACTOR )
+    body:setLinearVelocity( body.speedX * VELOCITY_FACTOR,
+                            body.speedY * VELOCITY_FACTOR )
 
     body.type = conf.type
     body.conf = conf
     body.prop = prop
 
-    body.remove = function ( self )
+    body.coroutine = MOAICoroutine.new()
 
+    body.remove = function ( self )
+        
         if self.prop ~= nil then
             layer:removeProp( self.prop )
             self.prop = nil
@@ -67,34 +69,36 @@ function M.onCollision( ev, fixA, fixB, arbiter )
 
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
 
-    if bodyB.type == "brick" then 
-        --bodyA:setTransform( 0, 0, 180 )
-        objects.add
-        bodyA:applyAngularImpulse( 180 )
-    end
-    
-    if bodyA.type == "brick" and bodyB.type == "player" then
-        local vx, vy = bodyB:getLinearVelocity()
-        local xA, yA = bodyA:getWorldCenter()
-        if math.abs( vx ) > CRACK_FORCE or
-           math.abs( vy ) > CRACK_FORCE then
-
-            if not bodyA.cracked then
-                layer:removeProp( bodyA.prop )
-                bodyA.prop = nil
-                bodyA.propCracked:setVisible( true )
-                bodyA.cracked = true
-            else
-                bodyA:remove()
-            end
-
-            stars:surge( 5, xA, yA )
-            effects.shake( display.getCamera( CAMERA_MOVING ),
-                           70 * SCREEN_SHAKE_POWER_X,
-                           70 * SCREEN_SHAKE_POWER_Y )
+    if bodyA.type == "scissors" and bodyB.type == "brick" then       
+        -- Box2d doesn't accept body updates during collision handle so we lazy-update them
+        -- This leaves room for performance improvement. We can have a single coroutine to 
+        -- update all scissors.
+        -- IMPROVEMENT: Performance
+        if bodyA.coroutine then 
+            bodyA.coroutine:stop()
+            bodyA.coroutine:run( function () 
+                switchDirection( bodyA )                
+            end )
         end
+    end    
+end
 
-    end
+
+
+---------------------------------------------------------------------------------------------------
+-- Private Functions
+---------------------------------------------------------------------------------------------------
+
+function switchDirection( body ) 
+
+    local px, py = body:getPosition()
+    local angle = 180
+
+    body:setTransform(px, py, angle)
+    body:setLinearVelocity( - body.speedX * VELOCITY_FACTOR,
+                            - body.speedY * VELOCITY_FACTOR )
+    --local x, y = body:getPosition()
+    --body:setTransform(x , y, 20)
 end
 
 ----------------------------------------------------------------------------------------------------

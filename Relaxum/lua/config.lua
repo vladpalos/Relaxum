@@ -47,6 +47,6 @@ INPUT_DOWN                      = 0
 INPUT_MOVE                      = 1
 INPUT_UP                        = 2
 
-DISABLE_PARTICLES               = false
+DISABLE_PARTICLES               = true
 
 DEBUG							= false
