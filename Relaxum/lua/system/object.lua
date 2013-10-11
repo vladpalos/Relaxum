@@ -60,7 +60,7 @@ function M.configSpeed( conf )
     return speedX, speedY
 end
 
-function M.addFixtures( name, body, category, mask, collisionHandler )
+function M.addB2DEditorFixtures( name, body, category, mask, collisionHandler )
     local fixture
     for _, points in ipairs( resources.getPolys( name ) ) do
         fixture = body:addPolygon( points )  

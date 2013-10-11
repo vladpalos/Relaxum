@@ -27,9 +27,9 @@
      borderopacity="0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.77590297"
-     inkscape:cx="1279.8866"
-     inkscape:cy="1126.75"
+     inkscape:zoom="1.0972925"
+     inkscape:cx="1242.2587"
+     inkscape:cy="1171.3635"
      inkscape:document-units="px"
      inkscape:current-layer="g7013"
      showgrid="false"
@@ -21471,8 +21471,8 @@
          transform="matrix(1.1826289,0,0,1.1826289,-580.05607,-55.497806)">
         <g
            id="g6926"
-           transform="matrix(-0.08566302,-0.99632417,-0.99632417,0.08566302,1291.7261,1136.2706)"
-           inkscape:export-filename="/home/vladpalos/Dropbox/Projects/Relaxum-proto/sheet_images/scissors_01_bottom.png"
+           transform="matrix(-0.37255398,-0.92801052,-0.92801052,0.37255398,1672.3905,1116.8113)"
+           inkscape:export-filename="/home/vladpalos/Development/relaxum/Relaxum-proto/sheet_images/scissors_01_bottom.png"
            inkscape:export-xdpi="90"
            inkscape:export-ydpi="90">
           <path
@@ -21489,7 +21489,7 @@
             <polygon
                style="fill:url(#linearGradient7031);fill-opacity:1;stroke:#9a0c00;stroke-width:0.28144065;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
                id="polygon45129"
-               points="295.74658,11.960449 297.04443,12.300293 297.04443,12.300293 296.39941,13.384766 295.13281,14.71875 294.73242,13.672852 "
+               points="297.04443,12.300293 296.39941,13.384766 295.13281,14.71875 294.73242,13.672852 295.74658,11.960449 297.04443,12.300293 "
                transform="matrix(3.637893,0,0,3.470375,313.89243,-331.21266)" />
             <path
                style="fill:url(#linearGradient7033);fill-opacity:1;stroke:none"
@@ -21509,9 +21509,9 @@
           </g>
         </g>
         <g
-           transform="translate(31.896691,9.7968409)"
+           transform="matrix(0.95651341,-0.29168835,0.29168835,0.95651341,229.25363,404.19597)"
            id="g6995"
-           inkscape:export-filename="/home/vladpalos/Dropbox/Projects/Relaxum-proto/sheet_images/scissors_01_top.png"
+           inkscape:export-filename="/home/vladpalos/Development/relaxum/Relaxum-proto/sheet_images/scissors_01_top.png"
            inkscape:export-xdpi="90"
            inkscape:export-ydpi="90">
           <g
@@ -21533,7 +21533,7 @@
               <polygon
                  style="fill:url(#linearGradient7039);fill-opacity:1;stroke:#9a0c00;stroke-width:0.28144065;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
                  id="polygon6910"
-                 points="295.13281,14.71875 294.73242,13.672852 295.74658,11.960449 297.04443,12.300293 297.04443,12.300293 296.39941,13.384766 "
+                 points="296.39941,13.384766 295.13281,14.71875 294.73242,13.672852 295.74658,11.960449 297.04443,12.300293 297.04443,12.300293 "
                  transform="matrix(3.637893,0,0,3.470375,313.89243,-331.21266)" />
               <path
                  style="fill:url(#linearGradient7041);fill-opacity:1;stroke:none"

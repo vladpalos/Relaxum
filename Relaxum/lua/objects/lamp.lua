@@ -20,7 +20,6 @@ end
 
 function M.add( conf )
 
-    local fixture, prop, anim
     local x, y = object.configPos( conf, 70 )
     local speedX, speedY = object.configSpeed( conf )
 
@@ -30,7 +29,7 @@ function M.add( conf )
 
     object.addFixtures( "lamp_1", body, CATEGORY_GOOD, MASK_GOOD, M.onCollision )
 
-    prop = resources.newSprite( 'lamp_1', layer, 0, 0 )
+    local prop = resources.newSprite( 'lamp_1', layer, 0, 0 )
     prop:setOpacity( 0.5 )
     --prop:setColor(math.random() * 0.8 + 0.2, math.random() * 0.8 + 0.2, math.random() * 0.8 + 0.2, math.random() * 0.8 + 0.2)
     prop:setParent( body )

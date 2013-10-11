@@ -27,7 +27,7 @@ function M.add( conf )
     local body = display.addBody( MOAIBox2DBody.DYNAMIC, x, y )
 
 
-    object.addFixtures( "star", body, CATEGORY_GOOD, MASK_GOOD, M.onCollision )
+    object.addB2DEditorFixtures( "star", body, CATEGORY_GOOD, MASK_GOOD, M.onCollision )
 
     body:setTransform( x, y, math.random( 360 ) )
 

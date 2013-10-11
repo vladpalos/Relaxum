@@ -30,7 +30,7 @@ function M.add( conf )
     body:setTransform( x, y )
     body:setMassData( mass )
 
-    object.addFixtures( "box", body )    
+    object.addB2DEditorFixtures( "box", body )    
 
     prop = resources.newSprite( 'box1', layer, 0, 0 )
     prop:setParent( body )

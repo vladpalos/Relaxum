@@ -159,6 +159,8 @@
             <filename>sheet_images/lamp_1.png</filename>
             <filename>sheet_images/objects1/star.png</filename>
             <filename>sheet_images/player.png</filename>
+            <filename>sheet_images/scissors_01_top.png</filename>
+            <filename>sheet_images/scissors_01_bottom.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
