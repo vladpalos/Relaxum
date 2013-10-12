@@ -161,6 +161,8 @@
             <filename>sheet_images/player.png</filename>
             <filename>sheet_images/scissors_01_top.png</filename>
             <filename>sheet_images/scissors_01_bottom.png</filename>
+            <filename>sheet_images/player_sad.png</filename>
+            <filename>sheet_images/player_focused.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

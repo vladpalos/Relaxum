@@ -88,6 +88,8 @@ function _onCollision( ev, fixA, fixB, arbiter )
             effects.shake( display.getCamera( CAMERA_MOVING ),
                            70 * SCREEN_SHAKE_POWER_X,
                            70 * SCREEN_SHAKE_POWER_Y )
+
+            player.changeFace( "focused" )
         end
 
     end

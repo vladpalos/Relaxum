@@ -13,15 +13,21 @@ local M = {}
 -- Timer -------------------------------------------------------------------------------------------
 
 function M.setInterval( func, delay )
-
+    local timer = MOAITimer.new( MOAITimer.NORMAL )
+    timer:setSpan( delay )
+    timer:setMode( MOAITimer.NORMAL )
+    timer:setListener( MOAITimer.EVENT_TIMER_LOOP, func )
+    timer:start()
+    return timer
 end
 
 function M.setTimeout( func, delay )
-  local timer = MOAITimer.new( MOAITimer.NORMAL )
-  timer:setSpan( delay )
-  timer:setMode( MOAITimer.LOOP )
-  timer:setListener( MOAITimer.EVENT_TIMER_LOOP, func )
-  timer:start()
+    local timer = MOAITimer.new( MOAITimer.NORMAL )
+    timer:setSpan( delay )
+    timer:setMode( MOAITimer.CONTINUE )
+    timer:setListener( MOAITimer.EVENT_TIMER_LOOP, func )
+    timer:start()
+    return timer
 end
 
 -- Threads -----------------------------------------------------------------------------------------

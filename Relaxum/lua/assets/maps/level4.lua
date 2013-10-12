@@ -338,17 +338,17 @@ return {
           name = "",
           type = "scissors",
           shape = "polyline",
-          x = 340,
-          y = 421,
+          x = 6,
+          y = 485,
           width = 0,
           height = 0,
           visible = true,
           polyline = {
-            { x = 254, y = -8 },
-            { x = 332, y = -226 },
-            { x = 197, y = -73 },
-            { x = 7, y = -114 },
-            { x = 114, y = -44 }
+            { x = 176, y = 26 },
+            { x = 284, y = -180 },
+            { x = 105, y = -403 },
+            { x = 41, y = -130 },
+            { x = 110, y = 104 }
           },
           properties = {
             ["easeType"] = "EASE_OUT",

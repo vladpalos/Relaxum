@@ -6,6 +6,12 @@
 
 local M = {}
 ---------------------------------------------------------------------------------------------------
+-- Constants
+---------------------------------------------------------------------------------------------------
+
+local DEFAULT_RESTORE_FACE = 3
+
+---------------------------------------------------------------------------------------------------
 -- Variables
 ---------------------------------------------------------------------------------------------------
 
@@ -45,10 +51,9 @@ end
 
 function initAimProp()
 	local prop = resources.newSprite( "player_aim", layer, P.x, P.y)
+
 --	local aimProp = resources.newSprite( "player_aim", layer, P.x, P.y)
-
 --	prop:setParent( aimProp )
-
 	--display.repeatAnimAttr( prop, MOAITransform2D.ATTR_Z_ROT, 1, 360, 10 )
 
 	prop:setPriority( 12 )
@@ -278,9 +283,9 @@ function M.getLayer()		return layer 			end
 -- Setters
 ---------------------------------------------------------------------------------------------------
 
--- You need to pass fromX and formY so that "buddy" can run in the opposit direction
-function M.hit( damage, fromX, fromY )	
-	--effects.shake( P.prop, 1, 1, 0.1 , 0.05 )
+-- The vx and vy parameters are when you need to emulate an object or you don't use the default 
+-- box2d system for collision support.
+function M.hit( damage, vx, vy )	
 
 	if P.hitCoroutine:isBusy() then		
 		return -- Let the man breathe a little
@@ -289,19 +294,50 @@ function M.hit( damage, fromX, fromY )
     P.moveCoroutine:stop()
 
 	P.hitCoroutine:run( function() 
-		info("I'm hit with damage " .. damage .." from: " .. fromX ..  ', ' .. fromY)
 
-		if damage < 20 then
-    		P.body:setLinearVelocity( -fromX * 10 , -fromY * 10 )
-    		utils.wait( P.prop:seekColor( 1, 0.3, 0.3, 0, 0.3 ) )
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 0, 0.8 ) )
-    		utils.wait( P.prop:seekColor( 1, 0, 0, 0, 0.3 ) )
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 0, 0.8 ) )
-    		utils.wait( P.prop:seekColor( 1, 0, 0, 0, 0.2 ) )
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 0, 1 ) )
+		M.changeFace( "sad" )
+		if damage < 30 then
+			P.body:setLinearVelocity( vx, vy )
+			P.body:resetMassData()
+
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.9, 0.1 ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.7, 0.5 ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.9, 0.1 ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.7, 0.5 ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.9, 0.1 ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 1, 0.5 ) )
 		end
+		M.changeFace()
 	end )
 
+end
+
+-- If persistent is:
+-- 	   *  true: the face stays like this forever.
+--     *  number: the face returns to normal after this amount of time ( seconds )
+--     *  missing / false / etc.: the face returns to normal after a constant amount of time.
+
+function M.changeFace( face, persistent ) 
+
+    local face = (not face) and "player" or "player_" .. face
+
+	resources.changeSprite( P.prop, face )	
+	
+	if M._changeFaceTimer then 
+		M._changeFaceTimer:stop()
+	end
+	
+	if type( persistent ) == 'number' or not persistent then
+		local persistent = persistent or DEFAULT_RESTORE_FACE
+		
+		if M._changeFaceTimer then
+			M._changeFaceTimer:start()
+		else
+			M._changeFaceTimer = utils.setTimeout( function() 
+				player.changeFace()
+			end, persistent )
+		end
+	end
 end
 
 

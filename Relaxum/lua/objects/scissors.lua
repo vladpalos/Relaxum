@@ -51,7 +51,7 @@ function M.add( conf )
     local fixture = body:addCircle( 0, 0, RADIUS )
 
     fixture:setFilter( CATEGORY_BAD, MASK_BAD )
-    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.END )  
+    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.BEGIN )  
     fixture:setSensor( true )
 
     --body:resetMassData()
@@ -153,8 +153,8 @@ function _onCollision( ev, fixA, fixB, arbiter )
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
 
     if bodyA.type == "scissors" and bodyB.type == "player" then       
-        local fromX, fromY = bodyA:getPosition()
-        player.hit( DAMAGE, fromX, fromY )
+        local posX, posY = bodyA:getPosition() 
+        player.hit( DAMAGE, -posX * 15, -posY * 15)
     end    
 end
 

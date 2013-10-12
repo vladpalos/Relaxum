@@ -151,6 +151,15 @@ function M.newSprite( name, layer, x, y )
     return prop
 end
 
+function M.changeSprite( prop, name )
+
+    local deck, index = M.findSprite( name )
+    prop:setDeck( deck )
+    prop:setIndex( index )
+
+    return prop
+end
+
 function M.getSpriteConfig( name )
     local k,v
     for k,v in pairs( SHEETS ) do               
