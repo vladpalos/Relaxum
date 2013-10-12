@@ -338,20 +338,22 @@ return {
           name = "",
           type = "scissors",
           shape = "polyline",
-          x = 285,
-          y = 482,
+          x = 340,
+          y = 421,
           width = 0,
           height = 0,
           visible = true,
           polyline = {
             { x = 0, y = 0 },
-            { x = 8, y = -317 },
+            { x = -36, y = -252 },
             { x = -181, y = -451 },
-            { x = -281, y = -116 },
+            { x = -23, y = 516 },
             { x = -224, y = 22 },
-            { x = -112, y = -185 }
+            { x = -99, y = -52 }
           },
-          properties = {}
+          properties = {
+            ["timerType"] = "PING_PONG"
+          }
         }
       }
     },

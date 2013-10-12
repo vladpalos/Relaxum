@@ -40,11 +40,13 @@
   <object type="brick" x="512" y="448" width="64" height="64"/>
   <object type="brick" x="320" y="448" width="64" height="64"/>
   <object type="brick" x="256" y="512" width="64" height="64"/>
-  <object type="scissors" x="285" y="482">
+  <object type="scissors" x="340" y="421">
    <properties>
-    <property name="timerType" value="PING_PONG"/>
+    <property name="easeType" value="EASE_OUT"/>
+    <property name="speed" value="1"/>
+    <property name="timerMode" value="LOOP"/>
    </properties>
-   <polyline points="0,0 -36,-252 -181,-451 -249,-324 -224,22 -112,-185"/>
+   <polyline points="254,-8 332,-226 197,-73 7,-114 114,-44"/>
   </object>
  </objectgroup>
  <layer name="clouds_1" width="18" height="10" visible="0">

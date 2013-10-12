@@ -5,7 +5,6 @@
 --=================================================================================================
 
 local M = {}
-
 ---------------------------------------------------------------------------------------------------
 -- Variables
 ---------------------------------------------------------------------------------------------------
@@ -91,9 +90,7 @@ function initPhysicsBody()
 	fixture:setRestitution( P.restitution )
 
     fixture:setFilter( CATEGORY_PLAYER, MASK_PLAYER )
-    fixture:setCollisionHandler( M.onObstacleCollision,
-    							   MOAIBox2DArbiter.BEGIN,
-    							   CATEGORY_OBSTACLE )
+    fixture:setCollisionHandler( M._onCollision, MOAIBox2DArbiter.BEGIN )
 
 	body:setTransform( P.x, P.y )
 	body:setLinearDamping( P.linearDamping )
@@ -129,7 +126,7 @@ function M.loadData()
 	P.restitution = 0.6
 	P.linearDamping = 10
 
-	-- Power on when the player touches and holds
+	-- Power up when the player touches and holds
 	P.power = 0
 	P.powerDelta = .1
 
@@ -167,6 +164,7 @@ function M.init( )
 
 	-- Movement
 	P.moveCoroutine = MOAICoroutine.new()
+	P.hitCoroutine = MOAICoroutine.new()
 
 	effects.addShaker( P.prop )
 
@@ -216,13 +214,6 @@ function M.moveAnimated( x, y )
 end
 
 
-function M.onObstacleCollision( ev, fixA, fixB, arbiter )
-    local vx, vy = P.body:getLinearVelocity()
-
-    P.moveCoroutine:stop()
-    P.body:applyLinearImpulse( vx , vy )
-end
-
 function M.reinit()
 end
 
@@ -250,9 +241,23 @@ function M.aim( x, y )
 	P.projY = y
 
 	local rot = math.atan2( P.x - x, -P.y + y )
-	P.prop:setRot( math.deg(rot) + 180 )
+	P.prop:setRot( math.deg( rot ) + 180 )
 
 	P.aimProp:setLoc( x, y )
+end
+
+
+---------------------------------------------------------------------------------------------------
+-- Private functions
+---------------------------------------------------------------------------------------------------
+
+function M._onCollision( ev, fixA, fixB, arbiter )
+
+	-- TODO Only on category or mask
+    local vx, vy = P.body:getLinearVelocity()
+
+    P.moveCoroutine:stop()
+--    P.body:applyLinearImpulse( vx , vy )
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -272,6 +277,34 @@ function M.getLayer()		return layer 			end
 ---------------------------------------------------------------------------------------------------
 -- Setters
 ---------------------------------------------------------------------------------------------------
+
+-- You need to pass fromX and formY so that "buddy" can run in the opposit direction
+function M.hit( damage, fromX, fromY )	
+	--effects.shake( P.prop, 1, 1, 0.1 , 0.05 )
+
+	if P.hitCoroutine:isBusy() then		
+		return -- Let the man breathe a little
+	end
+	
+    P.moveCoroutine:stop()
+
+	P.hitCoroutine:run( function() 
+		info("I'm hit with damage " .. damage .." from: " .. fromX ..  ', ' .. fromY)
+
+		if damage < 20 then
+    		P.body:setLinearVelocity( -fromX * 10 , -fromY * 10 )
+    		utils.wait( P.prop:seekColor( 1, 0.3, 0.3, 0, 0.3 ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 0, 0.8 ) )
+    		utils.wait( P.prop:seekColor( 1, 0, 0, 0, 0.3 ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 0, 0.8 ) )
+    		utils.wait( P.prop:seekColor( 1, 0, 0, 0, 0.2 ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 0, 1 ) )
+		end
+	end )
+
+end
+
+
 
 function M.grow()
 

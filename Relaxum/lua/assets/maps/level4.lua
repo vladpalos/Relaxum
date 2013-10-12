@@ -338,28 +338,23 @@ return {
           name = "",
           type = "scissors",
           shape = "polyline",
-          x = 288,
-          y = 216,
+          x = 340,
+          y = 421,
           width = 0,
           height = 0,
           visible = true,
           polyline = {
-            { x = -23, y = 22 },
-            { x = -1, y = -8 },
-            { x = 21, y = 20 }
+            { x = 254, y = -8 },
+            { x = 332, y = -226 },
+            { x = 197, y = -73 },
+            { x = 7, y = -114 },
+            { x = 114, y = -44 }
           },
-          properties = {}
-        },
-        {
-          name = "",
-          type = "brick",
-          shape = "rectangle",
-          x = 301,
-          y = 294,
-          width = 64,
-          height = 64,
-          visible = true,
-          properties = {}
+          properties = {
+            ["easeType"] = "EASE_OUT",
+            ["speed"] = "1",
+            ["timerMode"] = "LOOP"
+          }
         }
       }
     },

@@ -145,6 +145,7 @@ local function _addEraseBox()
 		local body = fixB:getBody()
 		if body.type ~= "player" then
 			body:remove()
+			body = nil
 		end
 	end
 

@@ -46,17 +46,17 @@ end
 M.go = function()
     MOAICoroutine.new():run( function()
 
-        level.addTimedRandomObjects( 20,
-                                     { list[1] },
-                                     0, 1 )
-        info ('Now passed')
-        level.addTimedRandomObjects( 5,
-                                     { list[2] },
-                                     2, 4 )
+--        level.addTimedRandomObjects( 20,
+  --                                   { list[1] },
+    --                                 0, 1 )
+        ---info ('Now passed')
+      --  level.addTimedRandomObjects( 5,
+        --                             { list[2] },
+          --                           2, 4 )
 
-        level.addTimedRandomObjects( 50,
-                                     { list[1] },
-                                     0, 1 )
+        --level.addTimedRandomObjects( 50,
+          --                           { list[1] },
+            --                         0, 1 )
 --        level.addRandomObjects( 20, list, 0, 0.5 )
 
 --        while level.getLiveObjects() > 0 do coroutine:yield() end

@@ -41,36 +41,37 @@ end
 -- Animation ---------------------------------------------------------------------------------------
 
 -- The object must be a MOAITransfrom2D Object
-function M.addShaker( object )
+function M.addShaker( prop )
 
-    if object.shakerCoroutine then
+    if prop.shakerCoroutine then
         warn("Object allready has a shaker!")
         return
     end
 
-    object.shakerCoroutine = MOAICoroutine.new()
+    prop.shakerCoroutine = MOAICoroutine.new()
 end
 
 
-function M.shake( object, powerX, powerY, drag, elasticity )
+function M.shake( prop, powerX, powerY, drag, elasticity )
 
-    drag = drag or .1
-    elasticity = elasticity or .1
-    err = 0.02
+    local drag = drag or .1
+    local elasticity = elasticity or .1
+    local err = 0.02
 
-    if not object.shakerCoroutine then
-        error("Please add a shaker to the object before using the shake effect!")
+    if not prop.shakerCoroutine then
+        error("Please add a shaker to the prop before using the shake effect!")
     end
 
-    object.shakerCoroutine:stop()
-    object.shakerCoroutine:run( function ()
+    prop.shakerCoroutine:stop()
+    prop.shakerCoroutine:run( function ()
 
-        local powerX, powerY, object, drag, elasticity
-            = powerX, powerY, object, drag, elasticity
+        local powerX, powerY, prop, drag, elasticity
+            = powerX, powerY, prop, drag, elasticity
 
         local posX, posY, velX, velY = 0, 0, powerX, powerY
+        local oldX, oldY = prop:getLoc()
 
-        while math.abs(velX) >= err and math.abs(velY) >= err do
+        while math.abs( velX ) >= err and math.abs( velY ) >= err do
 
             velX = velX - ( velX * drag )
             velY = velY - ( velY * drag )
@@ -81,11 +82,10 @@ function M.shake( object, powerX, powerY, drag, elasticity )
             posX = posX + velX
             posY = posY + velX
 
-            object:moveLoc( posX, posY )
+            prop:moveLoc( posX, posY )
 
             coroutine:yield()
         end
-
     end )
 end
 

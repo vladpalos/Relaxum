@@ -275,7 +275,7 @@ end
 
 function M.addBody( type, x, y, rot )
     
-    local body = world:addBody( type )
+    local body = world:addBody( type, x, y )
     body:setTransform( x, y, rot )
 	
     return body
@@ -309,11 +309,12 @@ end
 
 -- Clean -------------------------------------------------------------------------------------------
 
-function M.removeProps ( layer, props ) 
+function M.deleteProps ( layer, props ) 
     if props ~= nil then
-        if type(props) == 'table' then
-            for i, prop in ipairs(table) do
+        if type( props ) == 'table' then
+            for i, prop in ipairs( props ) do
                 layer:removeProp( prop )
+                props[i] = nil
             end
         else
             layer:removeProp( props )

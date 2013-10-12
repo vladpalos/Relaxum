@@ -24,6 +24,11 @@ function M.setTimeout( func, delay )
   timer:start()
 end
 
+-- Threads -----------------------------------------------------------------------------------------
+
+function M.wait ( action )
+    while action:isBusy () do coroutine:yield () end
+end
 
 -- Tables ------------------------------------------------------------------------------------------
 
