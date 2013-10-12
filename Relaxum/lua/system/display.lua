@@ -273,8 +273,13 @@ end
 
 -- Physics -----------------------------------------------------------------------------------------
 
-function M.addBody( type, x, y )
-	return world:addBody( type, x, y )
+function M.addBody( type, x, y, rot )
+    
+    local body = world:addBody( type )
+    body:setTransform( x, y, rot )
+	
+    return body
+
 end
 
 

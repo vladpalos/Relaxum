@@ -243,26 +243,16 @@ end
 
 
 function M.aim( x, y )
-
 	P.aimProp:setVisible( true )
 	P.aimLineProp:setVisible( true )
 
 	P.projX = x
 	P.projY = y
---	P.prop:setRot( math.asin(x), math.acos(y) )
 
---	local mx, my = x + (mapW / 2), y + (mapH / 2)
---	local sx, sy = P.x + (mapW / 2), P.y + (mapH / 2)
-
-	local rot = math.atan2(P.x - x, -P.y + y)
-
+	local rot = math.atan2( P.x - x, -P.y + y )
 	P.prop:setRot( math.deg(rot) + 180 )
 
---	info(math.deg(math.asin(px)))
---	P.prop:setRot(math.deg(math.asin(px)), math.deg(math.acos(py)))
-
 	P.aimProp:setLoc( x, y )
-
 end
 
 ---------------------------------------------------------------------------------------------------

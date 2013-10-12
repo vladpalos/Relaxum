@@ -136,10 +136,6 @@ end
 -- This function returns a fresh new prop with the sprite name found in sprite sheets. 
 -- The sprite names should all be unique.
 function M.newSprite( name, layer, x, y )   
-
-    if not layer then 
-        error( "Please provide a layer! layer is nil." )
-    end
     
     local deck, index = M.findSprite( name )
 
@@ -148,7 +144,9 @@ function M.newSprite( name, layer, x, y )
     prop:setIndex( index )
     prop:setLoc( x, y )
 
-    layer:insertProp( prop )
+    if layer ~= nil then
+        layer:insertProp( prop )
+    end
 
     return prop
 end

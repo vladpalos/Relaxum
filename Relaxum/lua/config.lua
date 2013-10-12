@@ -49,4 +49,4 @@ INPUT_UP                        = 2
 
 DISABLE_PARTICLES               = true
 
-DEBUG							= false
+DEBUG							= true

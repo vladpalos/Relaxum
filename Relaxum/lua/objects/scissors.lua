@@ -8,13 +8,19 @@
 --[[--------------------------------------------------------------------------------------------------
     The scissors are made out of a polyline wich is actually a path. 
     The scissors walk that path in a loop timer.
+
+    Scissors have a circle shaped body.
     ... 
     TODO
 --]]--------------------------------------------------------------------------------------------------
 
 local M = {}
 
-local SPEED = 1
+local DAMAGE = 2
+
+local DEFAULT_SPEED = 1
+
+local RADIUS = 33
 
 local ROT_TIME = 3
 local CUT_TIME = 0.3
@@ -35,27 +41,30 @@ end
 
 function M.add( conf )
 
-    local body = display.addBody( MOAIBox2DBody.DYNAMIC, conf.x, conf.y )
+    local body = display.addBody( MOAIBox2DBody.DYNAMIC, conf.x, conf.y, 16 )
+    local fixture = body:addCircle( 0, 0, RADIUS )
 
-    object.addB2DEditorFixtures( "scissors_01", body, CATEGORY_BAD, MASK_BAD, M.onCollision, true )
+    fixture:setFilter( CATEGORY_BAD, MASK_BAD )
+    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.BEGIN )  
+    fixture:setSensor( true )
 
     body:resetMassData()
 
     local prop = MOAIProp2D.new()
-    local scissorsTop = resources.newSprite('scissors_01_top', layer, -8, 0 )
+    local scissorsTop = resources.newSprite('scissors_01_top', layer, 4, 0 )
     local scissorsBottom = resources.newSprite( 'scissors_01_bottom', layer, 0, 0 )
 
     scissorsTop:setParent( prop )
     scissorsBottom:setParent( prop )
+    scissorsTop:setPriority( 2 )
+    scissorsBottom:setPriority( 1 )
+
     prop:setParent( body )
 
-    display.newSpanAnimation( scissorsTop, CUT_TIME, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,
-                              -BLADE_ROT, BLADE_ROT, -BLADE_ROT) :start()
-    display.newSpanAnimation( scissorsBottom, CUT_TIME, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,        
-                              BLADE_ROT, -BLADE_ROT, BLADE_ROT) :start()
-
+    -- Follow path and scissor animation
 
     local pathPoints = conf.polyline
+    local speed = conf.properties and conf.properties.speed or DEFAULT_SPEED
     
     local xCurve = MOAIAnimCurve.new()
     local yCurve = MOAIAnimCurve.new()
@@ -64,24 +73,24 @@ function M.add( conf )
     yCurve:reserveKeys( #pathPoints + 1 )
 
     for n, point in ipairs( pathPoints ) do
-        xCurve:setKey( n, SPEED * (n - 1), point.x + conf.x )
-        yCurve:setKey( n, SPEED * (n - 1), - point.y + conf.y )
+        xCurve:setKey( n, speed * (n - 1), point.x + conf.x )
+        yCurve:setKey( n, speed * (n - 1), - point.y + conf.y )
     end
 
     local n = #pathPoints + 1
-    xCurve:setKey( n, SPEED * n , pathPoints[1].x + conf.x )
-    yCurve:setKey( n, SPEED * n , - pathPoints[1].y + conf.y )
+    xCurve:setKey( n, speed * n , pathPoints[1].x + conf.x )
+    yCurve:setKey( n, speed * n , - pathPoints[1].y + conf.y )
     
-    local anim = MOAIAnim.new ()
-    anim:reserveLinks( 2 )
-    anim:setLink( 1, xCurve, body, MOAITransform.ATTR_X_LOC )
-    anim:setLink( 2, yCurve, body, MOAITransform.ATTR_Y_LOC )
+    local movement = MOAIAnim.new ()
+    movement:reserveLinks( 2 )
+    movement:setLink( 1, xCurve, body, MOAITransform.ATTR_X_LOC )
+    movement:setLink( 2, yCurve, body, MOAITransform.ATTR_Y_LOC )
     
     local timerType = conf.properties and conf.properties.timerType or "LOOP"
-    anim:setMode( MOAITimer.LOOP )
+    movement:setMode( MOAITimer.LOOP )
     
-    anim:setCurve( xCurve )
-    anim:setListener( MOAITimer.EVENT_TIMER_KEYFRAME, function ( self, i, t, v ) 
+    movement:setCurve( xCurve )
+    movement:setListener( MOAITimer.EVENT_TIMER_KEYFRAME, function ( self, i, t, v ) 
         if i ~= #pathPoints + 1 then 
 
             local point, nextPoint = i, i + 1
@@ -89,85 +98,47 @@ function M.add( conf )
                 point, nextPoint = #pathPoints, 1
             end
 
-            print (point, nextPoint)
             local dx, dy = pathPoints[nextPoint].x, pathPoints[nextPoint].y      
-            local x, y = body:getPosition()
-    
-            local rot = math.atan2( x - dx, -y + dy )
-            prop:moveRot( math.deg( rot ) - 120, 0.3 )
+            local x, y = pathPoints[point].x, pathPoints[point].y
+            
+            local rot = math.atan2( x - dx, y - dy )
+            prop:seekRot( math.deg( rot ), 0.3 )
         end
     end )
 
-    anim:start()
+    display.newSpanAnimation( scissorsTop, CUT_TIME, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,
+                              -BLADE_ROT, BLADE_ROT, -BLADE_ROT) :start()
+    display.newSpanAnimation( scissorsBottom, CUT_TIME, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,        
+                              BLADE_ROT, -BLADE_ROT, BLADE_ROT) :start()
+    movement:start()
 
+    -- Object Configuration
     body.type = conf.type
     body.conf = conf
-    body.props = { scissorTop, scissorsBottom }
-    --body.xCurve = xCurve
-    --body.yCurve = yCurve
-    --body.timer = timer
-    body.coroutine = MOAICoroutine.new()
-
+    body.prop = { scissorsTop, scissorsBottom, prop }
+    body.anim = anim
     body.remove = function ( self )
-        
---        display.removeProps( layer, body.props )
+            
+        display.removeProps( layer, body.prop )
   --      self:destroy()
     end
 end
-
-function M.onCollision( ev, fixA, fixB, arbiter )
-
-    local bodyA, bodyB = fixA:getBody(), fixB:getBody()
-
-    if bodyA.type == "scissors" and bodyB.type == "brick" then       
-    
-        -- Box2d doesn't accept body updates during collision handle so we lazy-update them
-        -- This leaves room for performance improvement. We can have a single coroutine to 
-        -- update all scissors.
-        -- IMPROVEMENT: Performance
-    
-        if bodyA.coroutine then 
-            bodyA.coroutine:stop()
-            bodyA.coroutine:run( function () 
-       --         coroutine:yield()
-         --       switchDirection( bodyA )                
-            end )
-        end
-    end    
-end
-
-
 
 ---------------------------------------------------------------------------------------------------
 -- Private Functions
 ---------------------------------------------------------------------------------------------------
 
-function _changeDirection(  self, i ) 
+function _onCollision( ev, fixA, fixB, arbiter )
 
-    local px, py = body:getPosition()
-    local vx, vy = body:getLinearVelocity()
+    local bodyA, bodyB = fixA:getBody(), fixB:getBody()
 
-    local lastAngle = body:getAngle()
-    local angle = -180 + lastAngle
-
-    body:setTransform( px, py, angle )
-    body.prop:setRot( -angle, ROT_TIME )
-    body.prop:moveRot( angle, ROT_TIME )
-
---    if (vx < 0)
-
-    print(vx, vy)
-    vx = vx < 0 and -1 or 1 
-    vy = vy < 0 and -1 or 1 
-    body:setLinearVelocity( vx * body.speedX * VELOCITY_FACTOR,
-                            vy * body.speedY * VELOCITY_FACTOR )
-
---    body:setTransform(px, py, angle)
-  --  body:setLinearVelocity( - body.speedX * VELOCITY_FACTOR,
-    --                        - body.speedY * VELOCITY_FACTOR )
-    --local x, y = body:getPosition()
-    --body:setTransform(x , y, 20)
+    if bodyA.type == "scissors" and bodyB.type == "brick" then       
+        if bodyA.coroutine then 
+        end
+    end    
 end
+
+
 
 ----------------------------------------------------------------------------------------------------
 return M

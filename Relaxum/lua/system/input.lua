@@ -109,5 +109,9 @@ function M.setDefaultCB( layerTable )
 	setCB( _defaultTouchCB )	
 end
 
+function M.getLastPos()
+	return MX, MY
+end
+
 ----------------------------------------------------------------------------------------------------
 return M

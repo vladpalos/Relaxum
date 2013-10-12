@@ -104,6 +104,7 @@ end
 
 -- Actions -----------------------------------------------------------------------------------------
 
+-- Deprecated, Not used
 function M.attackRect( x1, y1, x2, y2 ) -- Not sure
 	local propList = { GAME_LAYER_PARTITION:propListForRect( x1, y1, x2, y2 ) }
 
