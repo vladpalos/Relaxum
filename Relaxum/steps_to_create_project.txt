@@ -1,0 +1,89 @@
+
+
+BUILDING NEW MOAI SOURCE
+--	Add all NenadK tagged lines
+--	Delete all occurencies of tapjoy, facebook and criterism
+--	Build using build.sh script.
+	To build IOS only:
+		bash build.sh -c Release -p ios
+
+--	Create in Moai root the following folders:
+	[root]
+		L lib
+			L ios
+			L osx
+		L include
+			L aku
+			L lua-headers
+			L lua-modules
+
+--	Copy stuff:
+	- From /tmp/moai/Release/universal, copy the folders (arm7,universal,...) to lib/ios
+	- From /tmp/moai/OSX (?), find where the osx library is built and move to lib/osx (not necessary)
+	- From /src/ to /include:
+		aku
+		lua-headers
+		lua-modules
+
+
+CREATE NEW HOST
+-- 	
+--	Project > Build Settings
+	+ Add Build Settings > Add User-Defined Setting:
+		MOAI_DIR_LIB  = path (absolute or relative to ) /lib/ios/universal folder
+		MOAI_DIR_INCLUDE = path (absolute or relative to ) /include folder
+
+CREATING NEW PROJECT BY COPYING HOST (THAT POINTS TO MOAI BUILT LIBRARIES)
+
+--	Copy project folder
+
+--	If libmoai-ios.a and other libraries under Framework group are red:
+		Target > MoaiSample > Build Phases > Link Binary With Libraries > +
+		Then add all the .a files from lib/ios/universal folder
+
+--	To set orientation:
+	-	Target > MoaiSample > Summary
+		Highlight the desired orientations in device drawing
+
+	-	For landscape:
+		Project  > Build Settings > Other C Flags:
+		Add -DIS_LANDSCAPE
+
+	-	For portrait:
+		Project  > Build Settings > Other C Flags:
+		Delete -DIS_LANDSCAPE if it exists.
+
+	- 	In LUA:
+		When creating viewport, switch viewport height and width
+
+--	To activate location services (compass, etc, OFF by default):
+	Project  > Build Settings > Other C Flags:
+	Add -DUSE_LOCATION
+
+--	To activate UNTZ sound systekm (ON by default):
+	Project  > Build Settings > Other C Flags:
+	Add -DUSE_UNTZ
+
+--	Don't forget to code sign:
+	
+	Target > MoaiSample > Summary
+	-	Bundle Identifier: Put your AppID (from iOS Developer Portal),
+		ie. com.no-sheet.myApp
+
+	Target > MoaiSample > Build Settings
+	-	Product name, enter product name that will appear on device (below icon)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
