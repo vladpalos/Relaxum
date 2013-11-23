@@ -163,6 +163,9 @@
             <filename>sheet_images/scissors_01_bottom.png</filename>
             <filename>sheet_images/player_sad.png</filename>
             <filename>sheet_images/player_focused.png</filename>
+            <filename>sheet_images/rock.png</filename>
+            <filename>sheet_images/brick2.png</filename>
+            <filename>sheet_images/player_aim_place.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

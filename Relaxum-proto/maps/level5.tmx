@@ -16,19 +16,71 @@
   </data>
  </layer>
  <objectgroup name="objects" width="18" height="10">
-  <object type="brick" x="384" y="384" width="64" height="64"/>
-  <object type="brick" x="448" y="384" width="64" height="64"/>
-  <object type="brick" x="512" y="384" width="64" height="64"/>
-  <object type="brick" x="576" y="384" width="64" height="64"/>
-  <object type="brick" x="640" y="384" width="64" height="64"/>
-  <object type="brick" x="768" y="448" width="64" height="64"/>
-  <object type="brick" x="704" y="384" width="64" height="64"/>
-  <object type="brick" x="576" y="448" width="64" height="64"/>
-  <object type="brick" x="832" y="512" width="64" height="64"/>
-  <object type="brick" x="512" y="448" width="64" height="64"/>
-  <object type="brick" x="320" y="448" width="64" height="64"/>
-  <object type="brick" x="256" y="512" width="64" height="64"/>
+  <object type="brick1" x="384" y="384" width="64" height="64"/>
+  <object type="brick1" x="448" y="384" width="64" height="64"/>
+  <object type="brick1" x="512" y="384" width="64" height="64"/>
+  <object type="brick1" x="576" y="384" width="64" height="64"/>
+  <object type="brick1" x="640" y="384" width="64" height="64"/>
+  <object type="brick1" x="768" y="448" width="64" height="64"/>
+  <object type="brick1" x="704" y="384" width="64" height="64"/>
+  <object type="brick2" x="576" y="448" width="64" height="64"/>
+  <object type="brick2" x="860" y="399" width="64" height="64"/>
+  <object type="brick2" x="512" y="448" width="64" height="64"/>
+  <object type="brick2" x="267" y="341" width="64" height="64"/>
   <object type="rock" x="619" y="148" width="192" height="192"/>
+  <object type="brick1" x="320" y="448" width="64" height="64"/>
+  <object type="brick2" x="1088" y="576" width="64" height="64"/>
+  <object type="brick2" x="1088" y="512" width="64" height="64"/>
+  <object type="brick2" x="1088" y="384" width="64" height="64"/>
+  <object type="brick2" x="1088" y="320" width="64" height="64"/>
+  <object type="brick2" x="1088" y="448" width="64" height="64"/>
+  <object type="brick2" x="1088" y="256" width="64" height="64"/>
+  <object type="brick2" x="1088" y="192" width="64" height="64"/>
+  <object type="brick2" x="1088" y="128" width="64" height="64"/>
+  <object type="brick2" x="1088" y="0" width="64" height="64"/>
+  <object type="brick2" x="1088" y="64" width="64" height="64"/>
+  <object type="brick2" x="0" y="384" width="64" height="64"/>
+  <object type="brick2" x="0" y="576" width="64" height="64"/>
+  <object type="brick2" x="0" y="64" width="64" height="64"/>
+  <object type="brick2" x="0" y="256" width="64" height="64"/>
+  <object type="brick2" x="0" y="128" width="64" height="64"/>
+  <object type="brick2" x="0" y="320" width="64" height="64"/>
+  <object type="brick2" x="0" y="0" width="64" height="64"/>
+  <object type="brick2" x="0" y="192" width="64" height="64"/>
+  <object type="brick2" x="0" y="512" width="64" height="64"/>
+  <object type="brick2" x="0" y="448" width="64" height="64"/>
+  <object type="brick2" x="64" y="0" width="64" height="64"/>
+  <object type="brick2" x="128" y="0" width="64" height="64"/>
+  <object type="brick2" x="192" y="0" width="64" height="64"/>
+  <object type="brick2" x="256" y="0" width="64" height="64"/>
+  <object type="brick2" x="576" y="0" width="64" height="64"/>
+  <object type="brick2" x="384" y="0" width="64" height="64"/>
+  <object type="brick2" x="512" y="0" width="64" height="64"/>
+  <object type="brick2" x="448" y="0" width="64" height="64"/>
+  <object type="brick2" x="320" y="0" width="64" height="64"/>
+  <object type="brick2" x="896" y="0" width="64" height="64"/>
+  <object type="brick2" x="704" y="0" width="64" height="64"/>
+  <object type="brick2" x="832" y="0" width="64" height="64"/>
+  <object type="brick2" x="768" y="0" width="64" height="64"/>
+  <object type="brick2" x="640" y="0" width="64" height="64"/>
+  <object type="brick2" x="960" y="0" width="64" height="64"/>
+  <object type="brick2" x="1024" y="0" width="64" height="64"/>
+  <object type="brick2" x="832" y="576" width="64" height="64"/>
+  <object type="brick2" x="256" y="576" width="64" height="64"/>
+  <object type="brick2" x="512" y="576" width="64" height="64"/>
+  <object type="brick2" x="64" y="576" width="64" height="64"/>
+  <object type="brick2" x="1024" y="576" width="64" height="64"/>
+  <object type="brick2" x="960" y="576" width="64" height="64"/>
+  <object type="brick2" x="640" y="576" width="64" height="64"/>
+  <object type="brick2" x="896" y="576" width="64" height="64"/>
+  <object type="brick2" x="576" y="576" width="64" height="64"/>
+  <object type="brick2" x="192" y="576" width="64" height="64"/>
+  <object type="brick2" x="128" y="576" width="64" height="64"/>
+  <object type="brick2" x="704" y="576" width="64" height="64"/>
+  <object type="brick2" x="448" y="576" width="64" height="64"/>
+  <object type="brick2" x="384" y="576" width="64" height="64"/>
+  <object type="brick2" x="768" y="576" width="64" height="64"/>
+  <object type="brick2" x="320" y="576" width="64" height="64"/>
  </objectgroup>
  <layer name="clouds_1" width="18" height="10" visible="0">
   <properties>

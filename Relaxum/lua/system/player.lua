@@ -283,17 +283,17 @@ function M.getLayer()		return layer 			end
 -- Setters
 ---------------------------------------------------------------------------------------------------
 
--- The vx and vy parameters are when you need to emulate an object or you don't use the default 
+-- The vx and vy parameters are when you need to emulate an object or you don't use the default
 -- box2d system for collision support.
-function M.hit( damage, vx, vy )	
+function M.hit( damage, vx, vy )
 
-	if P.hitCoroutine:isBusy() then		
+	if P.hitCoroutine:isBusy() then
 		return -- Let the man breathe a little
 	end
-	
+
     P.moveCoroutine:stop()
 
-	P.hitCoroutine:run( function() 
+	P.hitCoroutine:run( function()
 
 		M.changeFace( "sad" )
 		if damage < 30 then
@@ -317,23 +317,23 @@ end
 --     *  number: the face returns to normal after this amount of time ( seconds )
 --     *  missing / false / etc.: the face returns to normal after a constant amount of time.
 
-function M.changeFace( face, persistent ) 
+function M.changeFace( face, persistent )
 
     local face = (not face) and "player" or "player_" .. face
 
-	resources.changeSprite( P.prop, face )	
-	
-	if M._changeFaceTimer then 
+	resources.changeSprite( P.prop, face )
+
+	if M._changeFaceTimer then
 		M._changeFaceTimer:stop()
 	end
-	
+
 	if type( persistent ) == 'number' or not persistent then
 		local persistent = persistent or DEFAULT_RESTORE_FACE
-		
+
 		if M._changeFaceTimer then
 			M._changeFaceTimer:start()
 		else
-			M._changeFaceTimer = utils.setTimeout( function() 
+			M._changeFaceTimer = utils.setTimeout( function()
 				player.changeFace()
 			end, persistent )
 		end
