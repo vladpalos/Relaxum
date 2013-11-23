@@ -44,7 +44,7 @@ CAMERA_MOVING           = 2
 ---------------------------------------------------------------------------------------------------
 -- Gravity
 GRAVITY_X               = 0
-GRAVITY_Y               = 0
+GRAVITY_Y               = -10
 
 -- Collision bits
 CATEGORY_NONE           = 0

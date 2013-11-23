@@ -62,8 +62,12 @@ end
 
 
 -- This is used only for polygon-body-shaped. For other fixtures, you must manually add them (ex: Circle).
-function M.addB2DEditorFixtures( name, body, category, mask, collisionHandler, isSensor )
+function M.addB2DEditorFixtures( name, body, category, mask, collisionHandler, isSensor, density, friction )
     local fixture
+
+    local density = density or 10
+    local friction = friction or 0
+
     for _, points in ipairs( resources.getPolys( name ) ) do
         fixture = body:addPolygon( points )  
 
@@ -76,9 +80,10 @@ function M.addB2DEditorFixtures( name, body, category, mask, collisionHandler, i
     	                                 MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.END )
         end
 
-        fixture:setDensity( 10 )
-        fixture:setFriction( 0 )
+        fixture:setDensity( density )
+        fixture:setFriction( friction )
     end
+    return fixture 
 end
 
 

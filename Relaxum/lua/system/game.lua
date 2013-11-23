@@ -27,7 +27,7 @@ local actionRoot = nil
 function M.go()
 	player.loadData()
 
-	map.load( "assets/maps/level4" )
+	map.load( "assets/maps/level5" )
 
 	level.init()
 	level.load()

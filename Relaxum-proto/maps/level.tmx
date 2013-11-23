@@ -40,13 +40,13 @@
   <object type="brick" x="512" y="448" width="64" height="64"/>
   <object type="brick" x="320" y="448" width="64" height="64"/>
   <object type="brick" x="256" y="512" width="64" height="64"/>
-  <object type="scissors" x="6" y="485">
+  <object type="scissors" x="340" y="421">
    <properties>
     <property name="easeType" value="EASE_OUT"/>
     <property name="speed" value="1"/>
     <property name="timerMode" value="LOOP"/>
    </properties>
-   <polyline points="176,26 284,-180 105,-403 41,-130 110,104"/>
+   <polyline points="254,-8 332,-226 197,-73 7,-114 114,-44"/>
   </object>
   <object type="rock" x="33" y="190" width="192" height="192"/>
  </objectgroup>
