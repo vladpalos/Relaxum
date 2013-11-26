@@ -24,13 +24,13 @@ function M.add( conf )
     local prop, anim
     local body = display.addBody( MOAIBox2DBody.DYNAMIC, conf.x, conf.y )
 
-    object.addB2DEditorFixtures( "rock", body, CATEGORY_GOOD, MASK_GOOD, _onCollision, false, 
+    object.addB2DEditorFixtures( "rock", body, CATEGORY_GOOD, MASK_GOOD, _onCollision, false,
                                  DENSITY, FRICTION )
 
     prop = resources.newSprite( 'rock', layer, 0, 0 )
     prop:setParent( body )
 
-    body:resetMassData()  
+    body:resetMassData()
 
     body.type = conf.type
     body.prop = prop
@@ -42,9 +42,9 @@ function M.add( conf )
     end
 end
 
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 -- Private Functions
----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 function _onCollision( ev, fixA, fixB, arbiter )
 end

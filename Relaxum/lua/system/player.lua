@@ -191,7 +191,7 @@ function M.moveAnimated( x, y )
 		local err = 2
 		local speed = P.speed
 		local seekx, seeky = P.seekX, P.seekY
-		local vx, vy =
+		local vx, vy
 
 		P.body:setLinearVelocity( 0, 0 )
 
@@ -257,7 +257,8 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function M._onCollision( ev, fixA, fixB, arbiter )
-
+print(fixA:getBody().type)
+print(fixB:getBody().type)
 	-- TODO Only on category or mask
     local vx, vy = P.body:getLinearVelocity()
 
