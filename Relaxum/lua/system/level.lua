@@ -43,19 +43,19 @@ function M.go()
 end
 
 -- Loads a single object or a list of objects.
-function M.loadObjects( name )
+function M.loadObjects( objType )
 
-	if type( name ) == 'string' then
-		if objectsType[name] == nil then
-			objectsType[name] = dofile( 'objects/' .. name .. '.lua' )
-			objectsType[name].load()
+	if type( objType ) == 'string' then
+		if objectsType[objType] == nil then
+			objectsType[objType] = dofile( 'objects/' .. objType .. '.lua' )
+			objectsType[objType].load()
 		end
 
-	elseif type( name ) == 'table' then
-		for _, name in ipairs( name ) do
-			if objectsType[name] == nil then
-				objectsType[name] = dofile( 'objects/' .. name .. '.lua' )
-				objectsType[name].load()
+	elseif type( objType ) == 'table' then
+		for _, objType in ipairs( objType ) do
+			if objectsType[objType] == nil then
+				objectsType[objType] = dofile( 'objects/' .. objType .. '.lua' )
+				objectsType[objType].load()
 			end
 		end
 	end

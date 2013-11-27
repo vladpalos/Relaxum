@@ -11,15 +11,15 @@
 	Each object has it's own:
 	 	1. Physic definition (usually they are all in assets/physics/objects.json)
 	 	2. Sprites (in different TexturePacker exported sprites)
-	 	3. Logic (in objects folder). This logic uses the helper module which contains general 
+	 	3. Logic (in objects folder). This logic uses the helper module which contains general
 	 			configuration functions.
-	
-	Objects are added in two ways: 
-		1. In main level thread (go function of each levels/level#.lua file.)
-		2. In TileMapEditor By specifing the name property (e.g. briks are added this way). 
 
-		Warning! To have consistency, the TiledMapEditor Physical definition is only for debbuging. 
-		The actual definition should be define in PhysicsBodyEditor. However, the position 
+	Objects are added in two ways:
+		1. In main level thread (go function of each levels/level#.lua file.)
+		2. In TileMapEditor By specifing the name property (e.g. briks are added this way).
+
+		Warning! To have consistency, the TiledMapEditor Physical definition is only for debbuging.
+		The actual definition should be define in PhysicsBodyEditor. However, the position
 		of those objects are provided from TiledMapEditor. For this reason it is usually better to
 		use TiledMapEditor for STATIC objects and to use the level thread for DYNAMIC objects.
 
@@ -34,8 +34,8 @@
 
 	WARNING !
 		1. When defining objects you NEED to define a way to clean that object. Also the world
-		   contains an erase box (or walls) beyond the edges of the screen so that on collision, 
-		   body:remove function is called. 
+		   contains an erase box (or walls) beyond the edges of the screen so that on collision,
+		   body:remove function is called.
 --]]
 
 ---------------------------------------------------------------------------------------------------
@@ -86,21 +86,26 @@ require 'globals'
 -- Globals
 ---------------------------------------------------------------------------------------------------
 
-utils				= require 'system/utils'			
+-- lib
+require 'system/lib/vector'
+
+-- system
+utils				= require 'system/utils'
 resources			= require 'system/resources'		-- Resources loading / caching / generating
-display				= require 'system/display'			-- Display / Graphical drawing 
-gui					= require 'system/gui'				
+display				= require 'system/display'
+gui					= require 'system/gui'
 map					= require 'system/map'				-- TiledMapEditor map file reading
-hud					= require 'system/hud'				
+hud					= require 'system/hud'
 director	 		= require 'system/director'			-- Main scene director
-input				= require 'system/input'			
-particles			= require 'system/particles'		
-player				= require 'system/player'			
-game				= require 'system/game'				-- Main game logic here 
-effects				= require 'system/effects'			
-level 				= require 'system/level'			-- Level flow handling 
+input				= require 'system/input'
+particles			= require 'system/particles'
+player				= require 'system/player'
+game				= require 'system/game'				-- Main game logic here
+effects				= require 'system/effects'
+level 				= require 'system/level'			-- Level flow handling
 object 				= require 'system/object'			-- Object helpers
 
+triangulation 		= require 'system/lib/triangulation'
 
 -- Initialization ---------------------------------------------------------------------------------
 

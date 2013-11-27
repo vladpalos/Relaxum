@@ -15,48 +15,48 @@ local M = {}
 ----------------------------------------------------------------------------------------------------
 
 
-function M.init()		
+function M.init()
 end
 
-function M.configPos( conf, apxSize ) 
+function M.configPos( conf, apxSize )
 
-    -- The aproximation size to know where the object to position itself at the beggining  
-    -- This shoudn't be to big, because it can hit the remove walls (or remove box)  
+    -- The aproximation size to know where the object to position itself at the beggining
+    -- This shoudn't be to big, because it can hit the remove walls (or remove box)
 	apxSize = apxSize or 70
 
     local mapW, mapH = map.getDims()
     local deltaX, deltaY = (mapW / 2) + apxSize, (mapH / 2) + apxSize
 
-    local x = (conf.x == "left") and -deltaX or 
-              (conf.x == "right") and deltaX or 
-              type(conf.x) == "number" and conf.x or 
+    local x = (conf.x == "left") and -deltaX or
+              (conf.x == "right") and deltaX or
+              type(conf.x) == "number" and conf.x or
               (math.random( mapW ) - ( deltaX ))
 
-    local y = (conf.y == "top") and deltaY or 
-              (conf.y == "bottom") and -deltaY or 
-              type(conf.y) == "number" and conf.y or 
+    local y = (conf.y == "top") and deltaY or
+              (conf.y == "bottom") and -deltaY or
+              type(conf.y) == "number" and conf.y or
               (math.random( mapH ) - ( deltaY ))
 
     return x, y
 end
 
 
-function M.configSpeed( conf ) 
+function M.configSpeed( conf )
 
     local speedX, speedY
 
-    speedX = conf.speedX 
-             or conf.minSpeedX and 
-                conf.maxSpeedX and 
+    speedX = conf.speedX
+             or conf.minSpeedX and
+                conf.maxSpeedX and
                 (math.random() * (conf.maxSpeedX - conf.minSpeedX)) + conf.minSpeedX
              or math.random(-5, 1)
 
-    speedY = conf.speedY 
-             or conf.minSpeedY and 
-                conf.maxSpeedY and 
+    speedY = conf.speedY
+             or conf.minSpeedY and
+                conf.maxSpeedY and
                 (math.random() * (conf.maxSpeedY - conf.minSpeedY)) + conf.minSpeedY
              or math.random(-5, 1)
-   
+
     return speedX, speedY
 end
 
@@ -69,23 +69,62 @@ function M.addB2DEditorFixtures( name, body, category, mask, collisionHandler, i
     local friction = friction or 0
 
     for _, points in ipairs( resources.getPolys( name ) ) do
-        fixture = body:addPolygon( points )  
+        fixture = body:addPolygon( points )
 
-        fixture:setSensor( isSensor or false )    
-        if category or mask then 
+        fixture:setSensor( isSensor or false )
+        if category or mask then
             fixture:setFilter( category, mask )
         end
+
         if collisionHandler then
-	        fixture:setCollisionHandler( collisionHandler, 
+	        fixture:setCollisionHandler( collisionHandler,
     	                                 MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.END )
         end
 
-        fixture:setDensity( density )
-        fixture:setFriction( friction )
-    end
-    return fixture 
-end
+        fixture:setDensity( density )         fixture:setFriction( friction )     end     return fixture end
 
+
+-- This is used only for polygon-body-shaped. For other fixtures, you must manually add them (ex: Circle).
+function M.addTiled2DPolyFixtures( polygon, body, category, mask, collisionHandler, isSensor, density, friction )
+    local fixture
+
+    local density = density or 10
+    local friction = friction or 0
+
+    local vectorPoly = {}
+
+    for _, i in ipairs ( polygon ) do
+        table.insert( vectorPoly, vector( i.x, i.y ) )
+    end
+
+
+    local triangles = triangulation.decompose( vectorPoly )
+    local css = 1
+    for _, triang in ipairs( triangles ) do
+        tprint((triang[3]))
+        body:addPolygon( utils.sortCounterClockwise ( { triang[1].x, -triang[1].y,
+                                                        triang[2].x, -triang[2].y,
+                                                        triang[3].x, -triang[3].y} ) )
+        css = css + 1
+
+    end
+   -- fixture = body:addPolygon( points )
+
+   --  fixture:setSensor( isSensor or false )
+   --  if category or mask then
+   --      fixture:setFilter( category, mask )
+   --  end
+
+   --  if collisionHandler then
+   --      fixture:setCollisionHandler( collisionHandler,
+   --                                   MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.END )
+   --  end
+
+   --  fixture:setDensity( density )
+   --  fixture:setFriction( friction )
+
+   --  return fixture
+end
 
 
 ----------------------------------------------------------------------------------------------------

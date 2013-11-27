@@ -50,9 +50,9 @@ end
 
 -- Used for queue, and stacks (better, faster)
 function M.newList ()
-    
+
     local List = {
-        first = 0, 
+        first = 0,
         last = -1
     }
 
@@ -61,13 +61,13 @@ function M.newList ()
       self.first = first
       self[first] = value
     end
-    
+
     function List:pushright (value)
       local last = self.last + 1
       self.last = last
       self[last] = value
     end
-    
+
     function List:popleft ()
       local first = self.first
       if first > self.last then error("list is empty") end
@@ -76,7 +76,7 @@ function M.newList ()
       self.first = first + 1
       return value
     end
-    
+
     function List:popright (self)
       local last = self.last
       if self.first > last then error("list is empty") end
@@ -135,6 +135,31 @@ function M.bitOr( a, b, c, ... )
         return a
     end
 end
+
+-- Triangulation -----------------------------------------------------------------------------------
+
+function M.sortCounterClockwise (t)
+
+    local i, j
+    for i = 1, 6, 2 do
+        for j = i, 6, 2 do
+            if t[i] < t[j] then
+                t[i], t[j] = t[j], t[i]
+                t[i+1], t[j+1] = t[j+1], t[i+1]
+            end
+        end
+    end
+    if M.isPointLeftOfLine( t[1], t[2], t[5], t[6], t[3], t[4] ) then
+        t[5], t[6], t[3], t[4] = t[3], t[4], t[5], t[6]
+    end
+    return t
+end
+
+
+function M.isPointLeftOfLine(x1, y1, x2, y2, px, py)
+     return ((x2 - x1)*(py - y1) - (y2 - y1)*(px - x1)) > 0;
+end
+
 ----------------------------------------------------------------------------------------------------
 function M.print( obj, name )
 

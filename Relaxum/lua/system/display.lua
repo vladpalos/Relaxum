@@ -269,15 +269,60 @@ function M.newLinearGradientRect( layer, x1, y1, x2, y2, c )
     prop = MOAIProp2D.new()
     prop:setDeck( mesh )
     layer:insertProp( prop )
+    return prop
 end
+
+function M.newGradientPolygon( layer, polygon )
+
+    local vertexFormat = MOAIVertexFormat.new()
+
+    -- Moai's default shaders expect loc, uv, color
+    vertexFormat:declareCoord( 1, MOAIVertexFormat.GL_FLOAT, 2 )
+    vertexFormat:declareColor( 2, MOAIVertexFormat.GL_UNSIGNED_BYTE )
+
+    local vbo = MOAIVertexBuffer.new()
+
+    vbo:setFormat( vertexFormat )
+    vbo:reserveVerts( #polygon )
+
+    for _, v in ipairs( polygon ) do
+		vbo:writeFloat( x1, y1 )
+    	vbo:writeColor32( 1, 1, 1 )
+    end
+
+    vbo:bless()
+
+    local mesh = MOAIMesh.new()
+    mesh:setVertexBuffer( vbo )
+    mesh:setPrimType( MOAIMesh.GL_TRIANGLE_FAN )
+
+    if MOAIGfxDevice.isProgrammable () then
+        local shader = MOAIShader.new( )
+
+        shader:reserveUniforms( 1 )
+        shader:declareUniform( 1, 'transform', MOAIShader.UNIFORM_WORLD_VIEW_PROJ )
+
+        shader:setVertexAttribute( 1, 'position' )
+        shader:setVertexAttribute( 2, 'color' )
+
+        shader:load( resources.loadShaderFiles( 'assets/shaders/gradient' ) )
+        mesh:setShader( shader )
+    end
+
+    prop = MOAIProp2D.new()
+    prop:setDeck( mesh )
+    layer:insertProp( prop )
+    return prop
+end
+
 
 -- Physics -----------------------------------------------------------------------------------------
 
 function M.addBody( type, x, y, rot )
-    
+
     local body = world:addBody( type, x, y )
     body:setTransform( x, y, rot )
-	
+
     return body
 
 end
@@ -309,7 +354,7 @@ end
 
 -- Clean -------------------------------------------------------------------------------------------
 
-function M.deleteProps ( layer, props ) 
+function M.deleteProps ( layer, props )
     if props ~= nil then
         if type( props ) == 'table' then
             for i, prop in ipairs( props ) do

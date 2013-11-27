@@ -1,6 +1,6 @@
 --=================================================================================================
--- 	Copyright (c) 2010-2012 Red Fruits Games, Inc. 
--- 	All Rights Reserved. 
+-- 	Copyright (c) 2010-2012 Red Fruits Games, Inc.
+-- 	All Rights Reserved.
 -- 	http://www.redfruits.com
 --=================================================================================================
 
@@ -24,8 +24,8 @@ OBJ_BAD                 = 2
 OBJ_GROW                = 3
 
 -- Animation Constants
-EASE_IN                 = MOAIEaseType.EASE_IN 
-EASE_OUT                = MOAIEaseType.EASE_OUT	
+EASE_IN                 = MOAIEaseType.EASE_IN
+EASE_OUT                = MOAIEaseType.EASE_OUT
 FLAT                    = MOAIEaseType.FLAT
 LINEAR                  = MOAIEaseType.LINEAR
 SHARP_EASE_IN           = MOAIEaseType.SHARP_EASE_IN
@@ -40,7 +40,7 @@ CAMERA_FIXED            = 1
 CAMERA_MOVING           = 2
 
 ---------------------------------------------------------------------------------------------------
--- BOX2d 
+-- BOX2d
 ---------------------------------------------------------------------------------------------------
 -- Gravity
 GRAVITY_X               = 0
@@ -66,32 +66,52 @@ MASK_BAD                = CATEGORY_PLAYER + CATEGORY_OBSTACLE
 -- global function overrides
 ---------------------------------------------------------------------------------------------------
 
-function error(...)  
+function error(...)
     io.write('\027[31m--> ERROR : ')
     print(...)
     io.write('\027[0m\n')
 end
 
-function warn(...)  
+function warn(...)
     io.write('\027[33m--> WARNING : ')
     print(...)
     io.write('\027[0m\n')
 end
 
-function info(...)  
-    io.write('\027[34m--> INFO: ')    
+function info(...)
+    io.write('\027[34m--> INFO: ')
     print(...)
     io.write('\027[0m\n')
 end
 
-function title(...)  
-    io.write('\027[34m========================================================================\n')    
+function title(...)
+    io.write('\027[34m========================================================================\n')
     print(...)
     io.write('\n========================================================================\027[0m\n')
 end
 
 function colorPrint(color, ...)
-    io.write('\027[' .. color .. 'm')    
+    io.write('\027[' .. color .. 'm')
     print(...)
     io.write('\027[0m')
+end
+
+function tprint( obj, name )
+
+  if name then
+    io.write( "\nObject [" .. name .. " ] " )
+  else
+    io.write( "\nObject " )
+  end
+
+  if not obj then
+    io.write( "is NIL !" )
+    return
+  end
+
+  print()
+
+  for k, v in pairs( obj ) do
+    print( k,v )
+  end
 end
