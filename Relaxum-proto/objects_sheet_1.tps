@@ -166,6 +166,9 @@
             <filename>sheet_images/rock.png</filename>
             <filename>sheet_images/brick2.png</filename>
             <filename>sheet_images/player_aim_place.png</filename>
+            <filename>sheet_images/brick3.png</filename>
+            <filename>sheet_images/brick3_cracked_1.png</filename>
+            <filename>sheet_images/brick3_cracked_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
