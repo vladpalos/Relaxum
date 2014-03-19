@@ -71,16 +71,11 @@ function M.setBackground( colors )
 
 	local layer = display.newLayer( CAMERA_MOVING , -101 )
 
-    local colors = colors or { {0.666666667, 0.690196078, 1.0},
-			                   {0.666666667, 0.690196078, 1.0},
-			                   {0.152941176, 0.235294118, 0.631372549},
-			                   {0.152941176, 0.235294118, 0.631372549} }
---[[
-    local colors = { {0, 0, 0},
-                     {0, 0, 0},
-                     {0.022941176, 0.115294118, 0.511372549},
-                     {0.022941176, 0.115294118, 0.511372549} }
---]]
+  local colors = colors or { {0.666666667, 0.690196078, 1.0},
+							 {0.666666667, 0.690196078, 1.0},
+							 {0.152941176, 0.235294118, 0.631372549},
+							 {0.152941176, 0.235294118, 0.631372549} }
+
 	local HW, HH = map.getDims()
 	HW, HH = HW / 2, HH / 2
 
@@ -88,14 +83,12 @@ function M.setBackground( colors )
 
 	resources.loadSpriteSheet('assets/sheets/objects_sheet_1')
 
---[[
-    local prop = resources.newSprite( 'moon', layer, 350, 200 )
-]]--
-
+   -- local prop = resources.newSprite( 'moon', layer, 350, 200 )
 	effects.addCloud( layer, 'cloud_1', 100, 200, 40 )
 	effects.addCloud( layer, 'cloud_4', -300, 100, 80 )
 	effects.addCloud( layer, 'cloud_3', 0, 0, 70 )
 	effects.addCloud( layer, 'cloud_2', 100, -200, 20 )
+
 
 end
 

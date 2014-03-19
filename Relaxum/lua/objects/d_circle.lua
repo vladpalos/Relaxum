@@ -19,7 +19,7 @@ local layer, glitter
 function M.load()
 
     layer = level.getLayer()
-  --  resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
+    resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
 
     glitter = particles.new( "time", "assets/particles/glitter4.pex", layer )
 end
@@ -41,15 +41,30 @@ function M.add( conf )
     local color = conf.color or DEFAULT_COLOR
     local borderColor = conf.borderColor or DEFAULT_BORDER_COLOR
 
+    local s1, s2 =  math.random(2, 5),  math.random(2, 5)
+    local p1, p2 =  math.random(-5, 5),  math.random(-5, 5)
+    local aux1, aux2
+
+    utils.setInterval( function()
+        aux1, aux2 = s1, s2
+        s1, s2 = 0, 0
+        utils.setTimeout( function()
+            s1, s2 = aux1, aux2
+        end, 0.2 )
+    end, math.random( 4, 6 ) )
+
+
     function onDraw ( index, xOff, yOff, xFlip, yFlip )
         MOAIGfxDevice.setPenColor ( borderColor[1], borderColor[2], borderColor[3], borderColor[4] )
-        MOAIDraw.fillCircle ( 0, 0, radius + border, 32 )
+        MOAIDraw.fillCircle ( 0, 0, radius + border, 24 )
 
         MOAIGfxDevice.setPenColor ( color[1], color[2], color[3], color[4] )
-        MOAIDraw.fillCircle ( 0, 0, radius, 32 )
+        MOAIDraw.fillCircle ( 0, 0, radius, 24 )
+
+        MOAIGfxDevice.setPenColor ( 0.4, 0.4, 0.4, 1 )
+        MOAIDraw.fillCircle ( -10 + p1, 10, s1, 10 )
+        MOAIDraw.fillCircle ( 10 + p2, 10,  s2, 10 )
     end
-
-
 
     local scriptDeck = MOAIScriptDeck.new ()
     scriptDeck:setRect ( - (radius / 2), - (radius / 2), radius / 2, radius / 2 )

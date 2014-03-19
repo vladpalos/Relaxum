@@ -19,30 +19,35 @@ local setup = {
 }
 
 local list = {
+    --[[ White Circle ]]--
     {
         type = "d_circle",
         speedX = 0,
         y = "top",
-        minSpeedY = -7,
-        maxSpeedY = -20,
+        minSpeedY = -1,
+        maxSpeedY = -5,
         radius = 40,
         border = 10,
         points = 10,
         color = { 0.7, 0.7, 0.7, 0.6 },
         borderColor = { 0.4, 0.4, 0.4, 0.4}
     },
+
+    --[[ Green Circle ]]--
     {
         type = "d_circle",
         speedX = 0,
         y = "top",
-        minSpeedY = -7,
-        maxSpeedY = -20,
+        minSpeedY = -1,
+        maxSpeedY = -5,
         radius = 40,
         border = 10,
         points = 10,
         color = { 0.2, 0.9, 0.2, 0.9 },
         borderColor = { 0, 0.4, 0, 0.4}
     },
+
+    --[[ Red Circle ]]--
     {
         type = "d_circle_bad",
         speedX = 0,
@@ -52,7 +57,7 @@ local list = {
         radius = 40,
         border = 10,
         points = 10,
-        color = { 0.9, 0.2, 0.2, 0.9 },
+        color = { 1.00, 0.21, 0.17, 1 };
         borderColor = { 0.6, 0.2, 0, 0.4}
     }
 }
@@ -64,7 +69,7 @@ M.init = function()
                      {0.022941176, 0.115294118, 0.511372549},
                      {0.022941176, 0.115294118, 0.511372549} }
 
-    game.setBackground( colors ) 
+    game.setBackground( nil )
     level.loadObjects( list )
 
     return setup
@@ -73,7 +78,7 @@ end
 
 M.goTimeLine = function()
 
-    level.addTimedRandomObjects( 800,
+    level.addTimedRandomObjects( 8000,
                                  list,
                                  0, 1 )
 

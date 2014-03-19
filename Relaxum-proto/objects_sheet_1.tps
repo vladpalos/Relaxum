@@ -40,7 +40,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -162,6 +162,8 @@
             <filename>moon.png</filename>
             <filename>sheet_images/diamond.png</filename>
             <filename>sheet_images/rock.png</filename>
+            <filename>sheet_images/eye_red.png</filename>
+            <filename>sheet_images/eye.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
