@@ -1,0 +1,16 @@
+To start a sample, execute a run.bat file in sample's folder. Go ahead and try hello-moai\run.bat!
+
+If there's a problem, it most probably means that Moai environment variables are not yet set on your system. You must add MOAI_BIN, which points to a directory where moai.exe is located. You must also add MOAI_CONFIG, which points to a directory where config.lua is located. Then restart your computer and try it again, it'll sure will work.
+
+See example below (if this package was extracted to C:\Moai-Lightweight):
+
+  MOAI_BIN:
+  C:\Moai-Lightweight\bin\win32
+  
+  MOAI_CONFIG:
+  C:\Moai-Lightweight\samples\config
+  
+Below is a link explaining of how to set up an environment variable in Windows 7 (works for Windows 8 too):
+http://www.itechtalk.com/thread3595.html
+
+Welcome to Moai!
