@@ -38,16 +38,18 @@ end
 local function updateFPS()
 
 	local frames = 0
-	local x, y = - SCREEN_WIDTH * 0.44, SCREEN_HEIGHT * 0.4
+	local x, y = - SCREEN_WIDTH * 0.33, SCREEN_HEIGHT * 0.1
 
-	print ( x * .5, y )
-	infoBox = gui.newTextBox( "", "f1", "small", _DEBUG_LAYER, x, y, 40, 40, 1, 1, 1, 0.7 )
+
+	infoBox = gui.newTextBox( "", x, y, 250, 140, 1, 1, 1, 0.7 )
+
+	_DEBUG_LAYER:insertProp( infoBox )
 
 	while true do
 		coroutine.yield()
 		frames = frames + 1
 		if frames % 10 == 0 then
-			infoBox:setString( string.format( "%d", MOAISim.getPerformance()) )
+			infoBox:setString( string.format( "fps %d", MOAISim.getPerformance()) )
 		end
 	end
 end
@@ -88,16 +90,20 @@ function repeatWithDelay( delay, repeats, func, ... )
  	return t
 end
 
-function M.enableDebug( delay )
+function M.enableDebug( delay, level )
 	debugEnabled = true
 	MOAISim.setHistogramEnabled( true )
 
---	_DEBUG_LAYER = display.newLayer( CAMERA_FIXED, 9999 )
+	_DEBUG_LAYER = display.newLayer( CAMERA_FIXED, 9999 )
 --
---	local fpsThread = MOAIThread.new()
---	fpsThread:run( updateFPS )
+	local fpsThread = MOAIThread.new()
+	fpsThread:run( updateFPS )
 
 	repeatWithDelay( 1, 10000, checkMem, false )
+
+	if level and (type(level) == 'number') and level > 2 then
+		M.enableDebugLines()
+	end
 
 	if delay then
 		repeatWithDelay( delay, 5000, debugLoop )

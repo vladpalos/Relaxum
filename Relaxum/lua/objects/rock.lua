@@ -15,6 +15,7 @@ function M.load()
 
     layer = level.getLayer()
     resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
+    resources.loadPolysSheet( "assets/physics/objects" )
 
     glitter = particles.new( "time", "assets/particles/glitter4.pex", layer )
 end

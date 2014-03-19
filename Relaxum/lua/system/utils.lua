@@ -15,8 +15,8 @@ local M = {}
 function M.setInterval( func, delay )
     local timer = MOAITimer.new( MOAITimer.NORMAL )
     timer:setSpan( delay )
-    timer:setMode( MOAITimer.NORMAL )
-    timer:setListener( MOAITimer.EVENT_TIMER_LOOP, func )
+    timer:setMode( MOAITimer.CONTINUE )
+    timer:setListener( MOAITimer.EVENT_TIMER_END_SPAN, func )
     timer:start()
     return timer
 end
@@ -24,8 +24,8 @@ end
 function M.setTimeout( func, delay )
     local timer = MOAITimer.new( MOAITimer.NORMAL )
     timer:setSpan( delay )
-    timer:setMode( MOAITimer.CONTINUE )
-    timer:setListener( MOAITimer.EVENT_TIMER_LOOP, func )
+    timer:setMode( MOAITimer.NORMAL )
+    timer:setListener( MOAITimer.EVENT_TIMER_END_SPAN, func )
     timer:start()
     return timer
 end
@@ -50,9 +50,9 @@ end
 
 -- Used for queue, and stacks (better, faster)
 function M.newList ()
-    
+
     local List = {
-        first = 0, 
+        first = 0,
         last = -1
     }
 
@@ -61,13 +61,13 @@ function M.newList ()
       self.first = first
       self[first] = value
     end
-    
+
     function List:pushright (value)
       local last = self.last + 1
       self.last = last
       self[last] = value
     end
-    
+
     function List:popleft ()
       local first = self.first
       if first > self.last then error("list is empty") end
@@ -76,7 +76,7 @@ function M.newList ()
       self.first = first + 1
       return value
     end
-    
+
     function List:popright (self)
       local last = self.last
       if self.first > last then error("list is empty") end
@@ -155,6 +155,38 @@ function M.print( obj, name )
     print( k,v )
   end
 end
+
+-- Do not call unrequire on a shared library based module unless you are 100% confidant that nothing uses the module anymore.
+-- @param m Name of the module you want removed.
+-- @return Returns true if all references were removed, false otherwise.
+-- @return If returns false, then this is an error message describing why the references weren't removed.
+function M.unrequire(m)
+
+  package.loaded[m] = nil
+  _G[m] = nil
+
+  -- Search for the shared library handle in the registry and erase it
+  local registry = debug.getregistry()
+  local nMatches, mKey, mt = 0, nil, registry['_LOADLIB']
+
+  for key, ud in pairs(registry) do
+    if type(key) == 'string' and type(ud) == 'userdata' and getmetatable(ud) == mt and string.find(key, "LOADLIB: .*" .. m) then
+      nMatches = nMatches + 1
+      if nMatches > 1 then
+        return false, "More than one possible key for module '" .. m .. "'. Can't decide which one to erase."
+      end
+      mKey = key
+    end
+  end
+
+  if mKey then
+    registry[mKey] = nil
+  end
+
+  return true
+end
+
+
 ----------------------------------------------------------------------------------------------------
 return M
 

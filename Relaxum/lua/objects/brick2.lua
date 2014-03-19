@@ -20,7 +20,6 @@ function M.load()
 end
 
 function M.add( conf )
-    if conf.shape == 'rectangle' then
 
         local halfW, halfH = conf.width / 2, conf.height / 2
         local body = display.getWorld():addBody( MOAIBox2DBody.STATIC )
@@ -50,8 +49,6 @@ function M.add( conf )
 
             self:destroy()
         end
-
-    end
 end
 
 ---------------------------------------------------------------------------------------------------

@@ -26,22 +26,18 @@ local actionRoot = nil
 -- Initialization ----------------------------------------------------------------------------------
 function M.go()
 	player.loadData()
-
-	map.load( "assets/maps/level6" )
-
-	level.init()
+	map.load( "assets/maps/level1" )
 	level.load()
 
+	level.init()
 	map.init()
 	player.init()
 	hud.init()
 
 	level.go()
 
-
---	local levelThread = MOAICoroutine.new()
     --[[ DEBUG ]]--
-	if DEBUG then
+	if DEBUG > 1 then
 		player.getLayer():setBox2DWorld(display.getWorld())
 	end
 end
@@ -76,28 +72,33 @@ function M.setBackground( r, g, b, a )
 	local layer = display.newLayer( CAMERA_MOVING , -101 )
 --	display.clearBackground( r, g, b, a )
 
--- To slow --
+---[[
   local colors = { {0.666666667, 0.690196078, 1.0},
                    {0.666666667, 0.690196078, 1.0},
                    {0.152941176, 0.235294118, 0.631372549},
                    {0.152941176, 0.235294118, 0.631372549} }
+--]]
 --[[
     local colors = { {0, 0, 0},
                      {0, 0, 0},
                      {0.022941176, 0.115294118, 0.511372549},
                      {0.022941176, 0.115294118, 0.511372549} }
-]]--
-
+--]]
 	local HW, HH = map.getDims()
 	HW, HH = HW / 2, HH / 2
 
     display.newLinearGradientRect( layer, -HW, -HH, HW, HH, colors )
 
-	resources.loadSpriteSheet('assets/sheets/tiles_sheet_1')
+	resources.loadSpriteSheet('assets/sheets/objects_sheet_1')
+
+--[[
+    local prop = resources.newSprite( 'moon', layer, 350, 200 )
+]]--
 	effects.addCloud( layer, 'cloud_1', 100, 200, 40 )
 	effects.addCloud( layer, 'cloud_4', -300, 100, 80 )
 	effects.addCloud( layer, 'cloud_3', 0, 0, 70 )
 	effects.addCloud( layer, 'cloud_2', 100, -200, 20 )
+
 
 end
 

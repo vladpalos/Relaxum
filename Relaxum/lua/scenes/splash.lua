@@ -1,13 +1,18 @@
 --==================================================================================================
--- 	Copyright (c) 2010-2012 Red Fruits Games, Inc. 
--- 	All Rights Reserved. 
--- 	http://www.redfruits.com
+--  Copyright (c) 2010-2012 Red Fruits Games, Inc.
+--  All Rights Reserved.
+--  http://www.redfruits.com
 --==================================================================================================
 
 local M = {}
 
--- This table is sent to MOAIRenderManager 
-local layerTable = {}
+---------------------------------------------------------------------------------------------------
+-- Local variables
+----------------------------------------------------------------------------------------------------
+
+M.layer = nil
+
+local timer
 
 ----------------------------------------------------------------------------------------------------
 -- Base functions
@@ -15,29 +20,31 @@ local layerTable = {}
 
 function M.onLoad()
 
-	mainLayer = display.newLayer()
-	table.insert(layerTable, mainLayer)	
+    resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
 
-	local logo = display.newImage("assets/images/logo.png", mainLayer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-	
-	logo.onPress = function (self, x, y) 
-		director.swap('scenes/MainMenu')
-	end
+    M.layer = display.newLayer( CAMERA_FIXED )
+    local logo = resources.newSprite("moon", M.layer, 0, 0 )
+
+    timer = utils.setTimeout( function ()
+        director.swap("scenes/main_menu", "fade", "fade", 1, 1)
+    end, 3 )
 
 end
 
-function M.onFocus()
-	input.setInputLayer(mainLayer)
+function M.onDelete()
+    --resources.unloadSpriteSheet( "assets/sheets/tiles_background" )
+    -- REMOVE IT AFTERWARDS
 end
 
-function M.onBlur()	
+function M.onTouchEvent( eventType, idx, x, y, tap )
+
+    if (eventType == 2) then
+        timer:stop()
+        --director.push("scenes/main_menu_pop", "fade", 0.5 )
+        director.swap("scenes/main_menu", "fade", "fade", 1, 1)
+    end
 end
 
-function M.onDelete()	
-	--graphicsMgr.releaseAll()
-end
 
 ---------------------------------------------------------------------------------------------------
 return M
-
-

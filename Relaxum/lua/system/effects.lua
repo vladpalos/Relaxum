@@ -92,7 +92,7 @@ end
 
 function M.addCloud( layer, spriteName, x, y, time )
 
-    resources.loadSpriteSheet('assets/sheets/objects_sheet_1')
+    resources.loadSpriteSheet('assets/sheets/perm_sheet_1')
 
     local _mw, _mh = map:getHalfDims()
     local cloud = resources.newSprite( spriteName, layer, x, y )

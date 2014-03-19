@@ -7,4 +7,6 @@
  <objecttype name="rock" color="#00aaff"/>
  <objecttype name="brick2" color="#000000"/>
  <objecttype name="brick3" color="#cb7d00"/>
+ <objecttype name="spiral" color="#ffffff"/>
+ <objecttype name="diamond" color="#a58aff"/>
 </objecttypes>

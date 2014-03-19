@@ -40,73 +40,61 @@ P.age = {
 ---------------------------------------------------------------------------------------------------
 
 -- Initialization
-function initProp()
-	local prop = resources.newSprite( "player", layer, P.x, P.y )
+function initProps()
 
-	prop:setVisible( true )
-	prop:setPriority( 10 )
+	P.prop = resources.newSprite( "player", layer, P.x, P.y )
+	P.prop:setVisible( true )
+	P.prop:setPriority( 10 )
 
-	return prop
-end
+	P.xProp = resources.newSprite( "x", layer, P.x, P.y)
+	P.xProp:setVisible( false )
+	P.xProp:setVisible( 12 )
 
-function initAimProp()
-	local prop = resources.newSprite( "player_aim", layer, P.x, P.y)
+	P.aimProp = resources.newSprite( "player_aim", layer, P.x, P.y)
+	P.aimProp:setPriority( 12 )
+	P.aimProp:setVisible( false )
 
---	local aimProp = resources.newSprite( "player_aim", layer, P.x, P.y)
---	prop:setParent( aimProp )
-	--display.repeatAnimAttr( prop, MOAITransform2D.ATTR_Z_ROT, 1, 360, 10 )
-
-	prop:setPriority( 12 )
-	prop:setVisible( false )
-
-	return prop
-end
-
-function initAimLineProp()
-	local aimLineProp = display.newDrawing( layer, 0, 0, 3000, 3000,
+	P.aimLineProp = display.newDrawing( layer, 0, 0, 3000, 3000, -- maybe
 		function( index, xOff, yOff, xFlip, yFlip )
 			MOAIGfxDevice.setPenColor( 0.2, 0.2, 0.2, 0.2 )
-			MOAIGfxDevice.setPenWidth( 20 )
+			local size = 20
+			MOAIGfxDevice.setPenWidth( size )
 			local bx, by = P.body:getPosition()
 			MOAIDraw.drawLine( bx, by, P.projX, P.projY )
 		end
 	)
-	aimLineProp:setVisible( false )
-	aimLineProp:setPriority( 1 )
-	return aimLineProp
+	P.aimLineProp:setVisible( false )
+	P.aimLineProp:setPriority( 1 )
+
 end
 
 function initParticles()
-	local glowParticles = particles.new( "time", "assets/particles/player.pex", layer )
+	P.glowParticles = particles.new( "time", "assets/particles/player.pex", layer )
 
-	glowParticlesEmitter = particles.newEmitter( glowParticles )
-	glowParticlesEmitter:start()
-	glowParticlesEmitter:setParent( P.prop )
-
-	return glowParticles
+	P.glowParticlesEmitter = particles.newEmitter( P.glowParticles )
+	P.glowParticlesEmitter:start()
+	P.glowParticlesEmitter:setParent( P.prop )
 end
 
 function initPhysicsBody()
 	local world = display.getWorld()
-	local body = display.addBody(  MOAIBox2DBody.DYNAMIC, 0, 0 )
+	P.body = display.addBody(  MOAIBox2DBody.DYNAMIC, 0, 0 )
 
-	local fixture = body:addCircle( 0, 0, P.size - 8 )
+	local fixture = P.body:addCircle( 0, 0, P.size - 8 )
 	fixture:setDensity( P.density )
 	fixture:setRestitution( P.restitution )
 
     fixture:setFilter( CATEGORY_PLAYER, MASK_PLAYER )
     fixture:setCollisionHandler( M._onCollision, MOAIBox2DArbiter.BEGIN )
 
-	body:setTransform( P.x, P.y )
-	body:setLinearDamping( P.linearDamping )
-	body:setFixedRotation()
-	body:resetMassData()
+	P.body:setTransform( P.x, P.y )
+	P.body:setLinearDamping( P.linearDamping )
+	P.body:setFixedRotation()
+	P.body:resetMassData()
 
-	body.type = "player"
+	P.body.type = "player"
 
-	P.prop:setParent( body )
-
-	return body
+	P.prop:setParent( P.body )
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -122,7 +110,8 @@ function M.loadData()
 	P.score = 0
 	P.life = 100
 	P.lives = 3
-	P.speed = 5
+	P.speed = 8
+	P.objectsCount = 0
 
 	P.loaded = true
 	P.size = 50				-- Texture size
@@ -154,18 +143,14 @@ function M.init( )
 		error( "No player loaded!" )
 	end
 
-	resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
+	resources.loadSpriteSheet( "assets/sheets/perm_sheet_1" )
 
     layer = display.newLayer( CAMERA_MOVING )
 
 	-- Initializaion
-	P.prop = initProp()
-	P.aimProp = initAimProp()
-	P.glowParticlesEmitter = initParticles()
-	P.body = initPhysicsBody()
-	P.aimLineProp = initAimLineProp()
-
-	--P.prop:setOpacity( 0.8 )
+	initProps()
+	initParticles()
+	initPhysicsBody()
 
 	-- Movement
 	P.moveCoroutine = MOAICoroutine.new()
@@ -183,6 +168,9 @@ function M.moveAnimated( x, y )
 
 	P.aimProp:setVisible( false )
 	P.aimLineProp:setVisible( false )
+
+	P.xProp:setVisible( true )
+	P.xProp:setLoc( x, y )
 
 	P.seekX, P.seekY = x, y
 
@@ -215,9 +203,16 @@ function M.moveAnimated( x, y )
 
 			coroutine:yield()
 		end
+
+		P.xProp:setVisible( false )
+
 	end )
 end
 
+function M.stop()
+	P.moveCoroutine:stop()
+	P.xProp:setVisible( false )
+end
 
 function M.reinit()
 end
@@ -257,28 +252,28 @@ end
 ---------------------------------------------------------------------------------------------------
 
 function M._onCollision( ev, fixA, fixB, arbiter )
-print(fixA:getBody().type)
-print(fixB:getBody().type)
 	-- TODO Only on category or mask
     local vx, vy = P.body:getLinearVelocity()
 
-    P.moveCoroutine:stop()
---    P.body:applyLinearImpulse( vx , vy )
+    -- if obstacle the
+    -- M.stop()
+	-- P.body:applyLinearImpulse( vx , vy )
 end
 
 ---------------------------------------------------------------------------------------------------
 -- Getters
 ---------------------------------------------------------------------------------------------------
 
-function M.getScore() 		return P.score 			end
-function M.isInitialized() 	return P.initialized 	end
-function M.getLevel() 		return P.level 			end
-function M.getPower() 		return P.power 			end
-function M.getLife() 		return P.life 			end
-function M.getLives() 		return P.lives 			end
+function M.getScore() 			return P.score 			end
+function M.isInitialized() 		return P.initialized 	end
+function M.getLevel() 			return P.level 			end
+function M.getPower() 			return P.power 			end
+function M.getLife() 			return P.life 			end
+function M.getLives() 			return P.lives 			end
+function M.getObjectsCount() 	return P.objectsCount	end
 
-function M.getProp()		return P.prop			end
-function M.getLayer()		return layer 			end
+function M.getProp()			return P.prop			end
+function M.getLayer()			return layer 			end
 
 ---------------------------------------------------------------------------------------------------
 -- Setters
@@ -292,7 +287,7 @@ function M.hit( damage, vx, vy )
 		return -- Let the man breathe a little
 	end
 
-    P.moveCoroutine:stop()
+    M.stop()
 
 	P.hitCoroutine:run( function()
 
@@ -341,8 +336,6 @@ function M.changeFace( face, persistent )
 	end
 end
 
-
-
 function M.grow()
 
 end
@@ -351,16 +344,20 @@ function M.shrink()
 
 end
 
-function M.setLevel( x ) 		P.level	= x 			end
-function M.setPower( x ) 		P.power = x 			end
-function M.setLife( x ) 		P.life 	= x 			end
-function M.setScore( x ) 		P.score = x 			end
-function M.setlives( x ) 		P.lives = x 			end
+function M.setLevel( x ) 			P.level	= x 			end
+function M.setPower( x ) 			P.power = x 			end
+function M.setLife( x ) 			P.life 	= x 			end
+function M.setScore( x ) 			P.score = x 			end
+function M.setlives( x ) 			P.lives = x 			end
+function M.setObjectsCount( x ) 	P.objectsCount = x 		end
+
+function M.addObjectsCount( x )
+	P.objectsCount = P.objectsCount + x
+end
 
 function M.addScore( x )
 
 	P.score = P.score + x
-	game.refreshGUI()
 end
 
 function M.subLife( x )
@@ -373,7 +370,6 @@ function M.subLife( x )
 		return
 	end
 
-	game.refreshGUI()
 end
 
 

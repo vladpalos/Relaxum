@@ -20,44 +20,41 @@ function M.load()
 end
 
 function M.add( conf )
-    if conf.shape == 'rectangle' then
 
-        local halfW, halfH = conf.width / 2, conf.height / 2
-        local body = display.getWorld():addBody( MOAIBox2DBody.STATIC )
-        local fixture = body:addRect( - halfW, -halfH, halfW, halfH )
+    local halfW, halfH = conf.width / 2, conf.height / 2
+    local body = display.getWorld():addBody( MOAIBox2DBody.STATIC )
+    local fixture = body:addRect( - halfW, -halfH, halfW, halfH )
 
-        body:setTransform( conf.x, conf.y )
+    body:setTransform( conf.x, conf.y )
 
-        local propCracked = resources.newSprite( 'brick3_cracked_'.. math.random( 2 ), layer, 0, 0 )
-        local prop = resources.newSprite( 'brick3', layer, 0, 0 )
+    local propCracked = resources.newSprite( 'brick3_cracked_'.. math.random( 2 ), layer, 0, 0 )
+    local prop = resources.newSprite( 'brick3', layer, 0, 0 )
 
-        prop:setParent( body )
-        propCracked:setParent( body )
-        propCracked:setVisible( false )
+    prop:setParent( body )
+    propCracked:setParent( body )
+    propCracked:setVisible( false )
 
-        fixture:setFilter( CATEGORY_OBSTACLE, MASK_OBSTACLE )
-        fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.PRE_SOLVE )
+    fixture:setFilter( CATEGORY_OBSTACLE, MASK_OBSTACLE )
+    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.PRE_SOLVE )
 
-        fixture:setFriction(1)
+    fixture:setFriction(1)
 
-        body.type = conf.type
-        body.conf = conf
-        body.prop = prop
-        body.propCracked = propCracked
+    body.type = conf.type
+    body.conf = conf
+    body.prop = prop
+    body.propCracked = propCracked
 
-        body.cracked = false
+    body.cracked = false
 
-        body.remove = function ( self )
+    body.remove = function ( self )
 
-            if self.prop ~= nil then
-                layer:removeProp( self.prop )
-                self.prop = nil
-            end
-
-            layer:removeProp( self.propCracked )
-            self:destroy()
+        if self.prop ~= nil then
+            layer:removeProp( self.prop )
+            self.prop = nil
         end
 
+        layer:removeProp( self.propCracked )
+        self:destroy()
     end
 end
 
@@ -66,7 +63,7 @@ end
 ---------------------------------------------------------------------------------------------------
 function _onCollision( ev, fixA, fixB, arbiter )
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
-    if bodyA.type == "brick1" and bodyB.type == "player" then
+    if bodyA.type == "brick3" and bodyB.type == "player" then
         local vx, vy = bodyB:getLinearVelocity()
         local xA, yA = bodyA:getWorldCenter()
         if math.abs( vx ) > CRACK_FORCE or

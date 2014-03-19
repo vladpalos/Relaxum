@@ -72,7 +72,7 @@ return {
       objects = {
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 256,
           y = 64,
@@ -83,7 +83,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 320,
           y = 128,
@@ -94,7 +94,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 384,
           y = 192,
@@ -105,7 +105,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 448,
           y = 192,
@@ -116,7 +116,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 512,
           y = 192,
@@ -127,7 +127,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 512,
           y = 128,
@@ -138,7 +138,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 576,
           y = 128,
@@ -149,7 +149,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 576,
           y = 192,
@@ -160,7 +160,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 640,
           y = 192,
@@ -171,7 +171,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 704,
           y = 192,
@@ -182,7 +182,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 768,
           y = 128,
@@ -193,7 +193,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 832,
           y = 64,
@@ -204,7 +204,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 384,
           y = 384,
@@ -215,7 +215,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 448,
           y = 384,
@@ -226,7 +226,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 512,
           y = 384,
@@ -237,7 +237,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 576,
           y = 384,
@@ -248,7 +248,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 640,
           y = 384,
@@ -259,7 +259,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 768,
           y = 448,
@@ -270,7 +270,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 704,
           y = 384,
@@ -281,7 +281,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 576,
           y = 448,
@@ -292,7 +292,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 832,
           y = 512,
@@ -303,7 +303,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 512,
           y = 448,
@@ -314,7 +314,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 320,
           y = 448,
@@ -325,7 +325,7 @@ return {
         },
         {
           name = "",
-          type = "brick",
+          type = "brick1",
           shape = "rectangle",
           x = 256,
           y = 512,
@@ -352,18 +352,376 @@ return {
           },
           properties = {
             ["easeType"] = "EASE_OUT",
-            ["speed"] = "1",
+            ["speed"] = "0.9",
             ["timerMode"] = "LOOP"
           }
         },
         {
           name = "",
-          type = "rock",
+          type = "brick3",
           shape = "rectangle",
-          x = 33,
-          y = 190,
-          width = 192,
-          height = 192,
+          x = 832,
+          y = 448,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick3",
+          shape = "rectangle",
+          x = 832,
+          y = 128,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick3",
+          shape = "rectangle",
+          x = 832,
+          y = 192,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick3",
+          shape = "rectangle",
+          x = 832,
+          y = 256,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick3",
+          shape = "rectangle",
+          x = 832,
+          y = 384,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick3",
+          shape = "rectangle",
+          x = 832,
+          y = 320,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "spiral",
+          shape = "ellipse",
+          x = 649,
+          y = 523,
+          width = 44,
+          height = 44,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "spiral",
+          shape = "ellipse",
+          x = 121,
+          y = 222,
+          width = 44,
+          height = 44,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "spiral",
+          shape = "ellipse",
+          x = 111,
+          y = 415,
+          width = 44,
+          height = 44,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "spiral",
+          shape = "ellipse",
+          x = 1023,
+          y = 286,
+          width = 44,
+          height = 44,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "diamond",
+          shape = "polygon",
+          x = 983,
+          y = 187,
+          width = 0,
+          height = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -24, y = -24 },
+            { x = -5, y = -57 },
+            { x = 29, y = -59 },
+            { x = 49, y = -23 },
+            { x = 27, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          name = "",
+          type = "rock",
+          shape = "polygon",
+          x = 258,
+          y = 109,
+          width = 0,
+          height = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -197, y = 152 },
+            { x = -124, y = 394 },
+            { x = 236, y = 509 },
+            { x = 515, y = 288 },
+            { x = 312, y = -85 }
+          },
+          properties = {}
+        },
+        {
+          name = "",
+          type = "diamond",
+          shape = "polygon",
+          x = 983,
+          y = 187,
+          width = 0,
+          height = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = -24, y = -24 },
+            { x = -5, y = -57 },
+            { x = 29, y = -59 },
+            { x = 49, y = -23 },
+            { x = 27, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 288,
+          y = 355,
+          width = 0,
+          height = 0,
+          gid = 3,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 441,
+          y = 360,
+          width = 0,
+          height = 0,
+          gid = 3,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 508,
+          y = 363,
+          width = 0,
+          height = 0,
+          gid = 3,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 572,
+          y = 348,
+          width = 0,
+          height = 0,
+          gid = 3,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 896,
+          y = 64,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1088,
+          y = 64,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 960,
+          y = 64,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1088,
+          y = 128,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1088,
+          y = 192,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1088,
+          y = 256,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1088,
+          y = 320,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1088,
+          y = 384,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1088,
+          y = 448,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1024,
+          y = 512,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 960,
+          y = 512,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 896,
+          y = 512,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1024,
+          y = 64,
+          width = 64,
+          height = 64,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "brick1",
+          shape = "rectangle",
+          x = 1088,
+          y = 512,
+          width = 64,
+          height = 64,
           visible = true,
           properties = {}
         }

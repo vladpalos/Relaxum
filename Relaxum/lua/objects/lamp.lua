@@ -20,7 +20,7 @@ end
 
 function M.add( conf )
 
-    local x, y = object.configPos( conf, 70 )
+    local x, y = object.configMovementPos( conf, 70 )
     local speedX, speedY = object.configSpeed( conf )
 
     local body = display.addBody( MOAIBox2DBody.DYNAMIC, x, y )

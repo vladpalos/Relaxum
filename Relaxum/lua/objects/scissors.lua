@@ -6,11 +6,11 @@
 
 
 --[[--------------------------------------------------------------------------------------------------
-    The scissors are made out of a polyline wich is actually a path. 
+    The scissors are made out of a polyline wich is actually a path.
     The scissors walk that path in a loop timer.
 
     Scissors have a circle shaped body.
-    ... 
+    ...
     TODO
 --]]--------------------------------------------------------------------------------------------------
 
@@ -36,7 +36,6 @@ function M.load()
     layer = level.getLayer()
 
     resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
-    resources.loadPolysSheet( "assets/physics/objects" )
 
     -- stars = particles.new( "time", "assets/particles/glitter2.pex", layer )
 end
@@ -51,7 +50,7 @@ function M.add( conf )
     local fixture = body:addCircle( 0, 0, RADIUS )
 
     fixture:setFilter( CATEGORY_BAD, MASK_BAD )
-    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.BEGIN )  
+    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.BEGIN )
     fixture:setSensor( true )
 
     --body:resetMassData()
@@ -70,7 +69,7 @@ function M.add( conf )
     -- Movement and Animation
 
     local pathPoints = conf.polyline
-    
+
     local xCurve = MOAIAnimCurve.new()
     local yCurve = MOAIAnimCurve.new()
 
@@ -87,7 +86,7 @@ function M.add( conf )
     local n = #pathPoints + 1
     xCurve:setKey( n, speed * ( n - 1 ), pathPoints[1].x + conf.x, MOAIEaseType[easeType] )
     yCurve:setKey( n, speed * ( n - 1 ), - pathPoints[1].y + conf.y, MOAIEaseType[easeType] )
-    
+
     local bx, by = body:getPosition()
     local movement = MOAIAnim.new ()
     movement:reserveLinks( 2 )
@@ -97,23 +96,23 @@ function M.add( conf )
     movement:setMode( MOAITimer[timerMode] )
 
     body:setTransform( bx, by, ROT_CORRECTION )
-   
-    movement:setListener( MOAITimer.EVENT_TIMER_KEYFRAME, function ( self, i, t, v )       
-        if i ~= #pathPoints + 1 then 
+
+    movement:setListener( MOAITimer.EVENT_TIMER_KEYFRAME, function ( self, i, t, v )
+        if i ~= #pathPoints + 1 then
 
             local point, nextPoint = i, i + 1
-            if i == #pathPoints then 
+            if i == #pathPoints then
                 point, nextPoint = #pathPoints, 1
             end
 
-            local dx, dy = pathPoints[nextPoint].x, pathPoints[nextPoint].y      
+            local dx, dy = pathPoints[nextPoint].x, pathPoints[nextPoint].y
             local x, y = pathPoints[point].x, pathPoints[point].y
-            
+
             local lastRot = prop:getRot()
             local rot = math.deg( math.atan2( x - dx, y - dy ) )
 
             -- Make the scissors turn less
-            local lastRotInverse = math.fmod( lastRot - 360, 360 )            
+            local lastRotInverse = math.fmod( lastRot - 360, 360 )
             if math.abs( rot - lastRot ) > math.abs( rot - lastRotInverse ) then
                 prop:setRot( lastRotInverse )
             end
@@ -122,12 +121,12 @@ function M.add( conf )
         end
     end )
 
-    -- Create the scissors animations and attach them to the 
+    -- Create the scissors animations and attach them to the
     -- movement animation so we can take care of only the movement animation.
 
     display.newSpanAnimation( scissorsTop, CUT_TIME, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,
                               -BLADE_ROT, BLADE_ROT, -BLADE_ROT) :attach( movement )
-    display.newSpanAnimation( scissorsBottom, CUT_TIME, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,        
+    display.newSpanAnimation( scissorsBottom, CUT_TIME, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Z_ROT,
                               BLADE_ROT, -BLADE_ROT, BLADE_ROT) :attach( movement )
     movement:start()
 
@@ -137,7 +136,7 @@ function M.add( conf )
     body.prop = { scissorsTop, scissorsBottom, prop }
     body.movement = movement
 
-    body.remove = function ( self )          
+    body.remove = function ( self )
         display.deleteProps( layer, body.prop )
         body.movement:stop()
         self:destroy()
@@ -152,10 +151,10 @@ function _onCollision( ev, fixA, fixB, arbiter )
 
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
 
-    if bodyA.type == "scissors" and bodyB.type == "player" then       
-        local posX, posY = bodyA:getPosition() 
+    if bodyA.type == "scissors" and bodyB.type == "player" then
+        local posX, posY = bodyA:getPosition()
         player.hit( DAMAGE, -posX * 15, -posY * 15)
-    end    
+    end
 end
 
 ----------------------------------------------------------------------------------------------------

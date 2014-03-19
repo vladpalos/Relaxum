@@ -15,15 +15,23 @@ local M = {}
 -- Variables
 ----------------------------------------------------------------------------------------------------
 
-local objectsType = {}
-local liveObjects = 0
+local objectsType 		= {}
+local levelSetup	 	= {}
 
-local levelLogic, layer, timeLine, timeCurve
+local liveObjects 		= 0
+
+local levelLogic, layer, timeLine, timeCurve, levelThread
+
+
 
 ----------------------------------------------------------------------------------------------------
 -- Global functions
 ----------------------------------------------------------------------------------------------------
 
+
+function M.load()
+	levelLogic = dofile( 'levels/level_logic_' .. player.getLevel() .. '.lua' )
+end
 
 function M.init()
 	layer = display.newLayer( CAMERA_MOVING )
@@ -31,31 +39,69 @@ function M.init()
 	timeLine = MOAITimer.new()
     timeLine:setMode( MOAITimer.NORMAL )
  	timeCurve = MOAIAnimCurve.new()
-end
 
-function M.load()
-	levelLogic = dofile( 'levels/level' .. player.getLevel() .. '.lua' )
-	levelLogic.init()
+	levelSetup = levelLogic.init()
 end
 
 function M.go()
-	levelLogic.go()
-end
 
--- Loads a single object or a list of objects.
-function M.loadObjects( name )
+	-- Main level thread
+    levelThread = MOAICoroutine.new()
+    levelThread:run( function()
+    	levelLogic.goTimeLine()
+    end )
 
-	if type( name ) == 'string' then
-		if objectsType[name] == nil then
-			objectsType[name] = dofile( 'objects/' .. name .. '.lua' )
-			objectsType[name].load()
+    -- Check status thread
+
+    MOAICoroutine.new():run( function()
+
+ 		while not M.checkWin() and not M.checkLose() do
+			coroutine:yield()
 		end
 
-	elseif type( name ) == 'table' then
-		for _, name in ipairs( name ) do
-			if objectsType[name] == nil then
-				objectsType[name] = dofile( 'objects/' .. name .. '.lua' )
-				objectsType[name].load()
+		timeLine:stop()
+		levelThread:stop()
+
+		if M.checkWin() then
+			M.doWin()
+		elseif M.checkLose() then
+			M.doLose()
+		end
+
+    end )
+end
+
+----------------------------------------------------------------------------------------------------
+
+function M.checkWin()
+	return player.getObjectsCount() >= levelSetup.targetCount
+end
+
+function M.checkLose()
+	return ( not levelThread:isBusy() and (M.getLiveObjects() == 0) )
+end
+
+function M.doWin()
+    print("You Won")
+end
+
+function M.doLose()
+    print("You Lost")
+end
+
+----------------------------------------------------------------------------------------------------
+
+-- Loads a list of objects from object conf.
+-- You need to pass only the object configurations with type parameter set to object name.
+function M.loadObjects( confs )
+	local conf
+	for _, conf in ipairs( confs ) do
+		if not conf.type then
+			error("When loading objects, please set the type in configuration passed.")
+		else
+			if objectsType[conf.type] == nil then
+				objectsType[conf.type] = dofile( 'objects/' .. conf.type .. '.lua' )
+				objectsType[conf.type].load()
 			end
 		end
 	end
@@ -68,17 +114,25 @@ function M.addObject( conf )
 	M.addLiveObject()
 end
 
-function M.addTimedRandomObjects( count, list, low, high )
-	timeCurve:reserveKeys( count )
 
-	if not low and not high then
+--[[
+	Dinamically adds random objects on screen.
+		count: number of objects
+		list: list of objects configurations from which to choose.
+		minDelay: min delay between object spawning
+		maxDelay: max delay between object spawning
+--]]
+function M.addTimedRandomObjects( count, list, minDelay, maxDelay )
+
+	if not minDelay and not maxDelay then
 	    for i = 1, count do
 	    	M.addRandomObject( list )
 	    end
 	else
+		timeCurve:reserveKeys( count )
 		local t = 0
 	    for i = 1, count do
-	        t = t + math.random()
+	        t = t + math.random( minDelay, maxDelay )
 	        timeCurve:setKey( i, t, 0, MOAIEaseType.FLAT )
 	    end
 
@@ -106,6 +160,8 @@ function M.addRandomObject( array )
 	M.addLiveObject()
 end
 
+
+-- NOT IN USE, NEEDS REFACTOR
 -- 	 Adds random number with pow distribution.
 --   If pow is high and > 1, the FIRST array objects have a better chance to be picked.
 -- 	 If pow is LOW AND between 0 and 1, the LAST array objects have a better chance to be picked.
@@ -156,6 +212,14 @@ end
 function M.getLiveObjects()
 	return liveObjects
 end
+
+function M.getTargetCount()
+	return levelSetup.targetCount
+end
+
+---------------------------------------------------------------------------------------------------
+-- Setters
+---------------------------------------------------------------------------------------------------
 
 function M.addLiveObject( )
 	liveObjects = liveObjects + 1

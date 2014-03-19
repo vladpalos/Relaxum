@@ -45,7 +45,15 @@ function M.init()
 
 	effects.addShaker( display.getCamera( CAMERA_MOVING ) )
 
-	resources.loadFont("assets/fonts/Righteous-Regular.ttf", "f1")
+	-- Load all fonts here
+    -- f1 ---------------------------------------------------------------
+    resources.loadFont( "assets/fonts/teen", "f1" )
+    resources.loadFont( "assets/fonts/teen.bold", "f1-bold" )
+    resources.loadFont( "assets/fonts/teen.italic", "f1-italic" )
+    resources.loadFont( "assets/fonts/teen.bold-italic", "f1-bold-italic" )
+
+    -- f2 ---------------------------------------------------------------
+
 end
 
 function M.initPhysics()
@@ -105,31 +113,44 @@ function M.newLayer( cameraId, zIndex )
 
 	table.insert( LAYERS, layer )
 
-	-- Sort rendering table by zIndex
-	--  We use an optimized bubble sort since
-	--  we need a stable sorting algorithm and
-	--  we don't care about performance here.
-	--  Lua's table.sort is not stable.
-
-	local i, j
-	local swapped, aux
-
-	repeat
-		swapped = false
-		for i = 2, #LAYERS do
-			if LAYERS[i - 1].zIndex > LAYERS[i].zIndex then
-				LAYERS[i], LAYERS[i - 1] = LAYERS[i - 1], LAYERS[i]
-				swapped = true
-			end
-		end
-	until swapped == false
-
-	--[[
-	table.sort( LAYERS, function( a , b ) return a.zIndex < b.zIndex end )
-	for k,v in ipairs(LAYERS) do print(k, v.zIndex) end
-	--]]
+    M.sortLayers()
 
 	return layer
+end
+
+function M.removeLayer( layer )
+    for i, l in ipairs( LAYERS ) do
+        if l == layer then
+            table.remove( LAYERS, i )
+        end
+    end
+end
+
+
+--
+-- Sort rendering table by zIndex
+--      We use an optimized bubble sort since
+--      we need a stable sorting algorithm and
+--      we don't care about performance here.
+--      Lua's table.sort is not stable.
+function M.sortLayers()
+    local i, j
+    local swapped, aux
+
+    repeat
+        swapped = false
+        for i = 2, #LAYERS do
+            if LAYERS[i - 1].zIndex > LAYERS[i].zIndex then
+                LAYERS[i], LAYERS[i - 1] = LAYERS[i - 1], LAYERS[i]
+                swapped = true
+            end
+        end
+    until swapped == false
+
+    --[[
+    table.sort( LAYERS, function( a , b ) return a.zIndex < b.zIndex end )
+    for k,v in ipairs(LAYERS) do print(k, v.zIndex) end
+    --]]
 end
 
 function M.getLayerByName( name )
@@ -140,6 +161,11 @@ function M.getLayerByName( name )
 	end
 	warn('Could not find layer ' .. name .. ' !')
 end
+
+function M.getLayers()
+    return LAYERS
+end
+
 
 function M.newSpanAnimation( prop, keyDuration, mode, ease, property, ... )
 
@@ -274,10 +300,10 @@ end
 -- Physics -----------------------------------------------------------------------------------------
 
 function M.addBody( type, x, y, rot )
-    
+
     local body = world:addBody( type, x, y )
     body:setTransform( x, y, rot )
-	
+
     return body
 
 end
@@ -309,7 +335,7 @@ end
 
 -- Clean -------------------------------------------------------------------------------------------
 
-function M.deleteProps ( layer, props ) 
+function M.deleteProps ( layer, props )
     if props ~= nil then
         if type( props ) == 'table' then
             for i, prop in ipairs( props ) do

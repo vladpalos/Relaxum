@@ -1,76 +1,42 @@
 --==================================================================================================
---  Copyright (c) 2010-2012 Red Fruits Games, Inc. 
---  All Rights Reserved. 
+--  Copyright (c) 2010-2012 Red Fruits Games, Inc.
+--  All Rights Reserved.
 --  http://www.redfruits.com
 --==================================================================================================
 
-module(..., package.seeall)
-
-----------------------------------------------------------------------------------------------------
--- Global variables
-----------------------------------------------------------------------------------------------------
-
--- This table is sent to MOAIRenderManager 
-layerTable = {}
+local M = {}
 
 ----------------------------------------------------------------------------------------------------
 -- Local variables
 ----------------------------------------------------------------------------------------------------
 
-
-local actionRoot = nil
-
----------------------------------------------------------------------------------------------------
--- Settings
----------------------------------------------------------------------------------------------------
-
-local levels = {}
-
-levels[1] = {
-    
-    goal        = 5,
-    timeLimit   = 0,
-
-    sheets      = ["assets/sheets/level1.png"],
-    objects     = ["assets/objects/objList1.lua"]
-    map         = "assets/maps/level1.lua"
-}
-
+M.layer = nil
 
 ----------------------------------------------------------------------------------------------------
--- Basic functions
+-- Base functions
 ----------------------------------------------------------------------------------------------------
 
-function onLoad()
+function M.onLoad()
 
-    input.setCB( game.onTouchEvent )
+    resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
 
-    layerTable = game.init( settings, objects ) 
-
-    game.loadLevel( "levels/world1/level" .. player.getLevel() .. ".lua" )  
-
-
-    --bkgLayer:clear()
-    --game.run()            
-    
-    collectgarbage( "stop" )
+    M.layer = display.newLayer( CAMERA_FIXED )
+    local left = resources.newSprite("box1", M.layer, -200, 0 )
+    local right = resources.newSprite("box1", M.layer, 100, 0 )
 
 end
 
+function M.onDelete()
 
-function onFocus()  
-
-    game.resume()
 end
 
-function onBlur()
+function M.onTouchEvent( eventType, idx, x, y, tap )
 
-    game.pause()
-end
-
-function onDelete() 
-
-    player.deinit()
+    print(eventType, idx, x, y, tap)
+    if (eventType == 2) then
+        --director.push("scenes/main_menu_pop", "fade", 0.5 )
+        director.swap("scenes/game_scene", "fade", "nothing", 0.5, 1)
+    end
 end
 
 

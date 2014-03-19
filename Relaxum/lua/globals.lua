@@ -1,8 +1,16 @@
 --=================================================================================================
--- 	Copyright (c) 2010-2012 Red Fruits Games, Inc. 
--- 	All Rights Reserved. 
+-- 	Copyright (c) 2010-2012 Red Fruits Games, Inc.
+-- 	All Rights Reserved.
 -- 	http://www.redfruits.com
 --=================================================================================================
+
+---------------------------------------------------------------------------------------------------
+-- Assets
+---------------------------------------------------------------------------------------------------
+DEFAULT_FONT            = "f1"
+DEFAULT_FONT_SMALL      = 28
+DEFAULT_FONT_MEDIUM     = 43
+DEFAULT_FONT_LARGE      = 54
 
 ---------------------------------------------------------------------------------------------------
 -- Global general-purpose constants
@@ -24,8 +32,8 @@ OBJ_BAD                 = 2
 OBJ_GROW                = 3
 
 -- Animation Constants
-EASE_IN                 = MOAIEaseType.EASE_IN 
-EASE_OUT                = MOAIEaseType.EASE_OUT	
+EASE_IN                 = MOAIEaseType.EASE_IN
+EASE_OUT                = MOAIEaseType.EASE_OUT
 FLAT                    = MOAIEaseType.FLAT
 LINEAR                  = MOAIEaseType.LINEAR
 SHARP_EASE_IN           = MOAIEaseType.SHARP_EASE_IN
@@ -39,12 +47,18 @@ SOFT_SMOOTH             = MOAIEaseType.SOFT_SMOOTH
 CAMERA_FIXED            = 1
 CAMERA_MOVING           = 2
 
+-- Status of the game
+GAME_LOST               = 1
+GAME_WON                = 2
+GAME_PLAYING            = 3
+GAME_NONE               = 4
+
 ---------------------------------------------------------------------------------------------------
--- BOX2d 
+-- BOX2d
 ---------------------------------------------------------------------------------------------------
 -- Gravity
 GRAVITY_X               = 0
-GRAVITY_Y               = -10
+GRAVITY_Y               = 0
 
 -- Collision bits
 CATEGORY_NONE           = 0
@@ -66,32 +80,32 @@ MASK_BAD                = CATEGORY_PLAYER + CATEGORY_OBSTACLE
 -- global function overrides
 ---------------------------------------------------------------------------------------------------
 
-function error(...)  
+function error(...)
     io.write('\027[31m--> ERROR : ')
     print(...)
     io.write('\027[0m\n')
 end
 
-function warn(...)  
+function warn(...)
     io.write('\027[33m--> WARNING : ')
     print(...)
     io.write('\027[0m\n')
 end
 
-function info(...)  
-    io.write('\027[34m--> INFO: ')    
+function info(...)
+    io.write('\027[34m--> INFO: ')
     print(...)
     io.write('\027[0m\n')
 end
 
-function title(...)  
-    io.write('\027[34m========================================================================\n')    
+function title(...)
+    io.write('\027[34m========================================================================\n')
     print(...)
     io.write('\n========================================================================\027[0m\n')
 end
 
 function colorPrint(color, ...)
-    io.write('\027[' .. color .. 'm')    
+    io.write('\027[' .. color .. 'm')
     print(...)
     io.write('\027[0m')
 end

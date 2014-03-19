@@ -1,34 +1,42 @@
 --==================================================================================================
--- 	Copyright (c) 2010-2012 Red Fruits Games, Inc. 
--- 	All Rights Reserved. 
+-- 	Copyright (c) 2010-2012 Red Fruits Games, Inc.
+-- 	All Rights Reserved.
 -- 	http://www.redfruits.com
 --==================================================================================================
 
-module(..., package.seeall)
+local M = {}
 
--- This table is sent to MOAIRenderManager 
-layerTable = {}
+---------------------------------------------------------------------------------------------------
+-- Local variables
+----------------------------------------------------------------------------------------------------
+
+M.layer = nil
 
 ----------------------------------------------------------------------------------------------------
 -- Base functions
 ----------------------------------------------------------------------------------------------------
 
-function onLoad()
+function M.onLoad()
 
-	mainLayer = display.newLayer()
-	local background = display.newImage("assets/images/menu/mm_background.png", mainLayer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
-	table.insert(layerTable, mainLayer)
+    resources.loadSpriteSheet( "assets/sheets/objects_sheet_1" )
+
+	M.layer = display.newLayer( CAMERA_FIXED )
+	local background = resources.newSprite("diamond", M.layer, 0, 0 )
+
 end
 
-function onFocus()
-	input.setInputLayer(mainLayer)
+function M.onDelete()
+
 end
 
-function onBlur()
+function M.onTouchEvent( eventType, idx, x, y, tap )
+
+    if (eventType == 2) then
+        --director.push("scenes/main_menu_pop", "fade", 0.5 )
+        director.swap("scenes/worlds", "fade", "fade", 0.5, 0.5 )
+    end
 end
 
-function onDelete()	
-end
 
 ---------------------------------------------------------------------------------------------------
 return M

@@ -146,29 +146,22 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>sheet_images/cloud_1.png</filename>
-            <filename>sheet_images/cloud_2.png</filename>
-            <filename>sheet_images/cloud_3.png</filename>
-            <filename>sheet_images/cloud_4.png</filename>
-            <filename>sheet_images/cloud_5.png</filename>
             <filename>sheet_images/brick1.png</filename>
             <filename>sheet_images/brick1_cracked_1.png</filename>
             <filename>sheet_images/brick1_cracked_2.png</filename>
-            <filename>sheet_images/player_aim.png</filename>
             <filename>sheet_images/box1.png</filename>
             <filename>sheet_images/lamp_1.png</filename>
             <filename>sheet_images/objects1/star.png</filename>
-            <filename>sheet_images/player.png</filename>
             <filename>sheet_images/scissors_01_top.png</filename>
             <filename>sheet_images/scissors_01_bottom.png</filename>
-            <filename>sheet_images/player_sad.png</filename>
-            <filename>sheet_images/player_focused.png</filename>
-            <filename>sheet_images/rock.png</filename>
             <filename>sheet_images/brick2.png</filename>
-            <filename>sheet_images/player_aim_place.png</filename>
             <filename>sheet_images/brick3.png</filename>
             <filename>sheet_images/brick3_cracked_1.png</filename>
             <filename>sheet_images/brick3_cracked_2.png</filename>
+            <filename>sheet_images/spiral.png</filename>
+            <filename>moon.png</filename>
+            <filename>sheet_images/diamond.png</filename>
+            <filename>sheet_images/rock.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
