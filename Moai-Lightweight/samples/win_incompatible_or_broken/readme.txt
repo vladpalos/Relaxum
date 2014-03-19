@@ -1,1 +1,0 @@
-There are samples which don't work properly on Windows Host or show LUA errors during execution.

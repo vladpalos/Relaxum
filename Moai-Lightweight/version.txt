@@ -1,1 +1,0 @@
-Moai SDK version 1.4p0
