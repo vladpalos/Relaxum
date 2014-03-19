@@ -122,5 +122,6 @@ elseif DEBUG > 1 then
 end
 
 -- Begin ------------------------------------------------------------------------------------------
+--director.push( 'scenes/splash', "fade", 0.7 )
 director.push( 'scenes/game_scene', "fade", 0.7 )
 

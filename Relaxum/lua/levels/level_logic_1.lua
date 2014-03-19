@@ -20,20 +20,6 @@ local setup = {
 
 local list = {
     {
-        type = "star",
-        speedX = 0,
-        y = "top",
-        minSpeedY = -5,
-        maxSpeedY = -1
-    },
-    {
-        type = "lamp",
-        speedX = 0,
-        y = "top",
-        minSpeedY = -5,
-        maxSpeedY = -1
-    },
-    {
         type = "d_circle",
         speedX = 0,
         y = "top",
@@ -44,13 +30,41 @@ local list = {
         points = 10,
         color = { 0.7, 0.7, 0.7, 0.6 },
         borderColor = { 0.4, 0.4, 0.4, 0.4}
+    },
+    {
+        type = "d_circle",
+        speedX = 0,
+        y = "top",
+        minSpeedY = -7,
+        maxSpeedY = -20,
+        radius = 40,
+        border = 10,
+        points = 10,
+        color = { 0.2, 0.9, 0.2, 0.9 },
+        borderColor = { 0, 0.4, 0, 0.4}
+    },
+    {
+        type = "d_circle_bad",
+        speedX = 0,
+        y = "top",
+        minSpeedY = -7,
+        maxSpeedY = -20,
+        radius = 40,
+        border = 10,
+        points = 10,
+        color = { 0.9, 0.2, 0.2, 0.9 },
+        borderColor = { 0.6, 0.2, 0, 0.4}
     }
 }
 
 M.init = function()
-    game.setBackground( 0.152941176, 0.235294118, 0.631372549, 1.0 ) -- blue 1
-   -- game.setBackground( 0.505882353, 0.521568627, 0.890196078, 1.0 ) -- blue 2
-   -- game.setBackground( 0.392156863, 0.643137255, 0, 1.0 )           -- green
+
+    local colors = { {0.01, 0.1, 0.3},
+                     {0.01, 0.1, 0.3},
+                     {0.022941176, 0.115294118, 0.511372549},
+                     {0.022941176, 0.115294118, 0.511372549} }
+
+    game.setBackground( colors ) 
     level.loadObjects( list )
 
     return setup
@@ -60,7 +74,7 @@ end
 M.goTimeLine = function()
 
     level.addTimedRandomObjects( 800,
-                                 { list[3] },
+                                 list,
                                  0, 1 )
 
 --        level.addTimedRandomObjects( 20,

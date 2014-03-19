@@ -6,13 +6,13 @@
 
 local M = {}
 
-local DEFAULT_POINTS = 10
+local DEFAULT_POINTS            = 10
 
-local DEFAULT_RADIUS = 40
-local DEFAULT_BORDER = 5
-local DEFAULT_VELOCITY = 20
-local DEFAULT_COLOR = { 0.8, 0.8, 0.8, 0.8 }
-local DEFAULT_BORDER_COLOR = {0.6, 0.6, 0.6, 0.6}
+local DEFAULT_RADIUS            = 40
+local DEFAULT_BORDER            = 5
+local DEFAULT_VELOCITY          = 20
+local DEFAULT_COLOR             = { 0.8, 0.8, 0.8, 0.8 }
+local DEFAULT_BORDER_COLOR      = {0.6, 0.6, 0.6, 0.6}
 
 local layer, glitter
 
@@ -103,7 +103,7 @@ function _onCollision( ev, fixA, fixB, arbiter )
         player.addObjectsCount( 1 )
         hud.refresh()
 
-        local text = gui.addShortAnimText( tostring( bodyA.points ), x, y, 100, 50, 1 )
+        local text = gui.addShortAnimText( tostring( bodyA.points ), x, y, 120, 150, 1 )
         layer:insertProp( text )
 
         utils.setTimeout( function()

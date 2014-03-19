@@ -27,7 +27,9 @@ function M.newTextBox( text, x, y, w, h, r, g, b, a, font )
 
     local textbox = MOAITextBox.new()
 
-    if font == nil then font = DEFAULT_FONT end
+    if font == nil then 
+        font = DEFAULT_FONT 
+    end
 
     textbox:setStyle( resources.getFont( font, "medium" ) )
     textbox:setStyle( "b", resources.getFont( font .. "-bold", "medium" ) )
@@ -72,7 +74,7 @@ function M.addShortAnimText( text, x, y, w, h, speed, r, g, b, a, font )
                           MOAITextBox.CENTER_JUSTIFY )
 
     --animText:moveLoc( 100, 0, speed, MOAIEaseType.EASE_IN )
-    animText:moveLoc( 0, 100, speed, MOAIEaseType.LINEAR  )
+    animText:moveLoc( 0, 150, speed, MOAIEaseType.LINEAR  )
     animText:moveScl( 0.2, 0.2, speed, MOAIEaseType.LINEAR )
     animText:seekColor( 1, 1, 1, 0, speed * 1.5, MOAIEaseType.EASE_OUT )
 
