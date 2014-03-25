@@ -50,7 +50,7 @@ function M.add( conf )
     local fixture = body:addCircle( 0, 0, RADIUS )
 
     fixture:setFilter( CATEGORY_BAD, MASK_BAD )
-    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.BEGIN )
+    fixture:setCollisionHandler( M._onCollision, MOAIBox2DArbiter.BEGIN )
     fixture:setSensor( true )
 
     --body:resetMassData()
@@ -147,7 +147,7 @@ end
 -- Private Functions
 ---------------------------------------------------------------------------------------------------
 
-function _onCollision( ev, fixA, fixB, arbiter )
+function M._onCollision( ev, fixA, fixB, arbiter )
 
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
 

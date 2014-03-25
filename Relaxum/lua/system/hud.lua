@@ -91,8 +91,8 @@ function M.init()
 	local pauseButton = resources.newSprite( "pause_button", layer, MAX_X - 50, MAX_Y - 55 )
 	pauseButton:setScl( 0.8, 0.8 )
 
-	scoreText = gui.newTextBox( '<b>' .. tostring( player.getScore() ) .. '</>' ,
-								MAX_X - 500, MAX_Y - 45 ,
+	scoreText = gui.newTextBox( '<lb>' .. tostring( player.getScore() ) .. '</>' ,
+								MAX_X - 450, MAX_Y - 52,
 								370, 70,
 								1, 1, 1, 0.9 )
 
@@ -100,7 +100,7 @@ function M.init()
 						    MOAITextBox.RIGHT_JUSTIFY )
 
 	local trophy = resources.newSprite( 'trophy', layer,
-										MAX_X - 280, MAX_Y - 59 )
+										MAX_X - 215, MAX_Y - 59 )
 
 
 	-- Lower Left Corner -------
@@ -111,7 +111,7 @@ function M.init()
 
 
 	lifeText = gui.newTextBox( tostring( player.getLife() ),
-										 -200, 190, 70, 50,
+						    			 -200, 190, 70, 50,
 										 1, 1, 1, 0.9 )
 
 	-- Lower Right Corner -------
@@ -147,12 +147,12 @@ function M.refresh()
 	if life < 0 then
 		life = 0
 	end
-	life = 50
+
 	hb_action = heartScrissorRect:seekLoc( 0, (ht_h / 100) * life, 1, 0.5, MOAIEaseType.EASE_IN )
 
 
 
-	scoreText:setString( '<b>' .. tostring( player.getScore() ) .. '</>' )
+	scoreText:setString( '<lb>' .. tostring( player.getScore() ) .. '</>' )
 
 	objectsCountText:setString( '<b>' .. tostring( player.getObjectsCount() ) .. '</>' ..
 							    '<sb> / ' .. tostring( level.getTargetCount() ) ..'</>' )

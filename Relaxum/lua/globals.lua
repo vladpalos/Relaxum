@@ -16,6 +16,7 @@ DEFAULT_FONT_LARGE      = 54
 -- Global general-purpose constants
 ---------------------------------------------------------------------------------------------------
 
+-- Screen
 HALF_WIDTH              = (SCREEN_WIDTH * 0.5)
 HALF_HEIGHT             = (SCREEN_HEIGHT * 0.5)
 
@@ -75,6 +76,14 @@ MASK_OBSTACLE           = CATEGORY_ALL
 MASK_PLAYER             = CATEGORY_ALL
 MASK_GOOD               = CATEGORY_PLAYER + CATEGORY_OBSTACLE
 MASK_BAD                = CATEGORY_PLAYER + CATEGORY_OBSTACLE
+
+---------------------------------------------------------------------------------------------------
+-- Global game constants
+---------------------------------------------------------------------------------------------------
+
+-- Player
+DEFAULT_RESTORE_FACE    = 3
+
 
 ---------------------------------------------------------------------------------------------------
 -- global function overrides

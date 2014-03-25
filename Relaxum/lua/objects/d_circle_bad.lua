@@ -64,7 +64,7 @@ function M.add( conf )
     layer:insertProp( prop )
 
     fixture:setFilter( CATEGORY_OBSTACLE, MASK_OBSTACLE )
-    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.PRE_SOLVE )
+    fixture:setCollisionHandler( M._onCollision, MOAIBox2DArbiter.PRE_SOLVE )
 
 
     body:setLinearVelocity( speedX * ( conf.velocityFactor or DEFAULT_VELOCITY ),
@@ -88,7 +88,7 @@ end
 -- Private Functions
 ---------------------------------------------------------------------------------------------------
 
-function _onCollision( ev, fixA, fixB, arbiter )
+function M._onCollision( ev, fixA, fixB, arbiter )
 
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
     local xA, yA = bodyA:getWorldCenter()

@@ -6,6 +6,15 @@
 
 local M = {}
 
+local layer
+
+-- Main --------------------------------------------------------------------------------------------
+
+function M.init()
+    layer = display.newLayer( CAMERA_FIXED, 1000 )
+end
+
+
 -- Text --------------------------------------------------------------------------------------------
 
 -- The style are as follows:
@@ -27,8 +36,8 @@ function M.newTextBox( text, x, y, w, h, r, g, b, a, font )
 
     local textbox = MOAITextBox.new()
 
-    if font == nil then 
-        font = DEFAULT_FONT 
+    if font == nil then
+        font = DEFAULT_FONT
     end
 
     textbox:setStyle( resources.getFont( font, "medium" ) )
@@ -71,7 +80,7 @@ function M.addShortAnimText( text, x, y, w, h, speed, r, g, b, a, font )
     local animText = M.newTextBox( text, x, y, w, h, r, g, b, a, font)
 
     animText:setAlignment( MOAITextBox.CENTER_JUSTIFY,
-                          MOAITextBox.CENTER_JUSTIFY )
+                           MOAITextBox.CENTER_JUSTIFY )
 
     --animText:moveLoc( 100, 0, speed, MOAIEaseType.EASE_IN )
     animText:moveLoc( 0, 150, speed, MOAIEaseType.LINEAR  )
@@ -80,6 +89,50 @@ function M.addShortAnimText( text, x, y, w, h, speed, r, g, b, a, font )
 
     return animText
 end
+----------------------------------------------------------------------------------------------------
+function M.animPopUp ( w, h, r, g, b, a )
+
+
+    function onDraw ( index, xOff, yOff, xFlip, yFlip )
+        MOAIGfxDevice.setPenColor ( r, g, b, a )
+        MOAIDraw.fillRect ( -w / 2, -h / 2, w / 2, h / 2 )
+
+        MOAIDraw.fillRect ( -w / 2 + 5, -h / 2 + 5, w / 2 - 5, h / 2 - 5)
+    end
+
+    local scriptDeck = MOAIScriptDeck.new ()
+    scriptDeck:setRect ( -w / 2, -h / 2, w / 2, h / 2 )
+    scriptDeck:setDrawCallback ( onDraw )
+
+    local prop = MOAIProp2D.new ()
+    prop:setDeck ( scriptDeck )
+    prop:setBlendMode( MOAIProp2D.BLEND_NORMAL )
+
+    layer:insertProp( prop )
+
+    prop:setLoc( 0, -500 )
+    prop:seekLoc( 0, 0, 1, EASE_OUT )
+
+    utils.setTimeout( function()
+        display.newSpanAnimation( prop, 1, MOAITimer.LOOP,  MOAIEaseType.LINEAR,  MOAITransform.ATTR_Y_LOC,
+                              -5, 5, -5) :start()
+
+        display.newSpanAnimation( prop, 1.2, MOAITimer.LOOP,  MOAIEaseType.LINEAR,  MOAITransform.ATTR_X_LOC,
+                              -5, 5, -5) :start()
+
+        display.newSpanAnimation( prop, 2, MOAITimer.LOOP,  MOAIEaseType.LINEAR,  MOAITransform.ATTR_Z_ROT,
+                              -1, 1, -1) :start()
+    end, 1 )
+
+    return prop
+end
+
+
+----------------------------------------------------------------------------------------------------
+function M.getLayer()
+    return layer
+end
+
 
 ----------------------------------------------------------------------------------------------------
 return M

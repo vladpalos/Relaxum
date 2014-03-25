@@ -61,7 +61,7 @@ end
 ---------------------------------------------------------------------------------------------------
 -- Private Functions
 ---------------------------------------------------------------------------------------------------
-function _onCollision( ev, fixA, fixB, arbiter )
+function M._onCollision( ev, fixA, fixB, arbiter )
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
     if bodyA.type == "brick3" and bodyB.type == "player" then
         local vx, vy = bodyB:getLinearVelocity()

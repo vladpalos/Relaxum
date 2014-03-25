@@ -162,6 +162,9 @@
             <filename>moon.png</filename>
             <filename>sheet_images/diamond.png</filename>
             <filename>sheet_images/rock.png</filename>
+            <filename>sheet_images/circle_bad.png</filename>
+            <filename>sheet_images/circle_bad_saw.png</filename>
+            <filename>sheet_images/circle_bad_eye.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

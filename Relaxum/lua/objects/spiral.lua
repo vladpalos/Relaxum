@@ -32,7 +32,7 @@ function M.add( conf )
     prop:setParent( body )
 
     fixture:setFilter( CATEGORY_OBSTACLE, MASK_OBSTACLE )
-    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.PRE_SOLVE )
+    fixture:setCollisionHandler( M._onCollision, MOAIBox2DArbiter.PRE_SOLVE )
 
     local rand_rot = math.random(0, 360)
     display.newSpanAnimation( prop, ROT_TIME, MOAITimer.LOOP,  MOAIEaseType.LINEAR,  MOAITransform.ATTR_Z_ROT,
@@ -53,7 +53,7 @@ end
 -- Private Functions
 ---------------------------------------------------------------------------------------------------
 
-function _onCollision( ev, fixA, fixB, arbiter )
+function M._onCollision( ev, fixA, fixB, arbiter )
 
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
     local xA, yA = bodyA:getWorldCenter()

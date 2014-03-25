@@ -27,7 +27,7 @@ function M.add( conf )
     local body = display.addBody( MOAIBox2DBody.DYNAMIC, x, y )
 
 
-    object.addB2DEditorFixtures( "star", body, CATEGORY_GOOD, MASK_GOOD, _onCollision, true )
+    object.addB2DEditorFixtures( "star", body, CATEGORY_GOOD, MASK_GOOD, M._onCollision, true )
 
     body:setTransform( x, y, math.random( 360 ) )
 
@@ -57,7 +57,7 @@ end
 -- Private Functions
 ---------------------------------------------------------------------------------------------------
 
-function _onCollision( ev, fixA, fixB, arbiter )
+function M._onCollision( ev, fixA, fixB, arbiter )
 
     if ev == MOAIBox2DArbiter.BEGIN then
 

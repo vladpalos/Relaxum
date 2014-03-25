@@ -45,7 +45,7 @@ function M.init()
 
 	effects.addShaker( display.getCamera( CAMERA_MOVING ) )
 
-	-- Load all fonts here
+    -- Load all fonts here
     -- f1 ---------------------------------------------------------------
     resources.loadFont( "assets/fonts/teen", "f1" )
     resources.loadFont( "assets/fonts/teen.bold", "f1-bold" )

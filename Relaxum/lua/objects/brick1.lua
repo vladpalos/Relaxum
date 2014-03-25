@@ -33,7 +33,7 @@ function M.add( conf )
     prop:setParent( body )
 
     fixture:setFilter( CATEGORY_OBSTACLE, MASK_OBSTACLE )
-    fixture:setCollisionHandler( _onCollision, MOAIBox2DArbiter.PRE_SOLVE )
+    fixture:setCollisionHandler( M._onCollision, MOAIBox2DArbiter.PRE_SOLVE )
 
     fixture:setFriction(1)
 
@@ -53,7 +53,7 @@ end
 ---------------------------------------------------------------------------------------------------
 -- Private Functions
 ---------------------------------------------------------------------------------------------------
-function _onCollision( ev, fixA, fixB, arbiter )
+function M._onCollision( ev, fixA, fixB, arbiter )
     local bodyA, bodyB = fixA:getBody(), fixB:getBody()
     if bodyA.type == "brick1" and bodyB.type == "player" then
     end

@@ -25,7 +25,7 @@ function M.add( conf )
     local prop, anim
     local body = display.addBody( MOAIBox2DBody.DYNAMIC, conf.x, conf.y )
 
-    object.addB2DEditorFixtures( "rock", body, CATEGORY_GOOD, MASK_GOOD, _onCollision, false,
+    object.addB2DEditorFixtures( "rock", body, CATEGORY_GOOD, MASK_GOOD, M._onCollision, false,
                                  DENSITY, FRICTION )
 
     prop = resources.newSprite( 'rock', layer, 0, 0 )
@@ -41,13 +41,16 @@ function M.add( conf )
         self:destroy()
         level.removeLiveObject()
     end
+
+    display.newSpanAnimation( prop, 2, MOAITimer.LOOP,  MOAIEaseType.EASE_IN,  MOAITransform.ATTR_Y_POS,
+                              ) :attach( movement )
 end
 
 ----------------------------------------------------------------------------------------------------
 -- Private Functions
 ----------------------------------------------------------------------------------------------------
 
-function _onCollision( ev, fixA, fixB, arbiter )
+function M._onCollision( ev, fixA, fixB, arbiter )
 end
 
 ----------------------------------------------------------------------------------------------------

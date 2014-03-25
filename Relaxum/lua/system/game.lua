@@ -36,6 +36,7 @@ function M.go()
 
 	level.go()
 
+
     --[[ DEBUG ]]--
 	if DEBUG > 1 then
 		player.getLayer():setBox2DWorld(display.getWorld())
@@ -61,8 +62,21 @@ function M.resume()
 end
 
 function M.gameOver()
-	addMainText( "You lose!" )
+
+
+	local popup = gui.animPopUp( 400, 200, 0.1, .1, 0.23, .7 )
+	local text = gui.newTextBox( '<lb>You lost!</>',
+								 0, 0,
+								 300, 200,
+								 1, 1, 1, 0.9 )
+	gui.getLayer():insertProp( text )
+	text:setParent( popup )
+	text:setAlignment( MOAITextBox.CENTER_JUSTIFY, MOAITextBox.CENTER_JUSTIFY )
+
+
 	player.destroy()
+	input.setCB(function() end)
+
 end
 
 -- Background --------------------------------------------------------------------------------------

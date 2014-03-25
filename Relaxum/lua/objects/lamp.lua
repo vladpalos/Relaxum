@@ -27,7 +27,7 @@ function M.add( conf )
 
     body:setTransform( x, y )
 
-    object.addFixtures( "lamp_1", body, CATEGORY_GOOD, MASK_GOOD, _onCollision )
+    object.addFixtures( "lamp_1", body, CATEGORY_GOOD, MASK_GOOD, M._onCollision )
 
     local prop = resources.newSprite( 'lamp_1', layer, 0, 0 )
     prop:setOpacity( 0.5 )
@@ -57,7 +57,7 @@ end
 -- Private Functions
 ---------------------------------------------------------------------------------------------------
 
-function _onCollision( ev, fixA, fixB, arbiter )
+function M._onCollision( ev, fixA, fixB, arbiter )
 
     if ev == MOAIBox2DArbiter.BEGIN then
 

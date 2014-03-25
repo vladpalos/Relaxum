@@ -5,11 +5,6 @@
 --=================================================================================================
 
 local M = {}
----------------------------------------------------------------------------------------------------
--- Constants
----------------------------------------------------------------------------------------------------
-
-local DEFAULT_RESTORE_FACE = 3
 
 ---------------------------------------------------------------------------------------------------
 -- Variables
@@ -215,21 +210,24 @@ function M.stop()
 end
 
 function M.reinit()
-end
 
-
-function M.deinit()
-	P.glowParticles:stop()
 end
 
 
 function M.destroy()
-	P.prop:seekColor( 1, 0, 0, 0, 2 )
+	--P.prop:seekColor( 0, 0, 0, 0, 2 )
 
-	timer.performWithDelay( 4, function ()
-		P.prop:setVisible( false )
-	end )
-	deinit()
+	P.glowParticles:stop()
+	M.stop()
+	P.body:destroy()
+	display.deleteProps(layer, { P.aimLineProp, P.xProp, P.aimProp })
+
+	P.prop:moveLoc( 0, -1000, 1.5, EASE_OUT )
+
+	utils.setTimeout( function ()
+		display.deleteProps(layer, { P.prop })
+	end, 4 )
+
 end
 
 
@@ -287,22 +285,29 @@ function M.hit( damage, vx, vy )
 		return -- Let the man breathe a little
 	end
 
+	M.subLife( damage )
+	hud.refresh( )
+
     M.stop()
 
 	P.hitCoroutine:run( function()
 
 		M.changeFace( "sad" )
-		if damage < 30 then
+		--if damage < 30 then
 			P.body:setLinearVelocity( vx, vy )
 			P.body:resetMassData()
 
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.9, 0.1 ) )
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.7, 0.5 ) )
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.9, 0.1 ) )
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.7, 0.5 ) )
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 0.9, 0.1 ) )
-    		utils.wait( P.prop:seekColor( 1, 1, 1, 1, 0.5 ) )
-		end
+    		utils.wait( P.prop:seekColor( .8, .8, .8, .8, .1, EASE_OUT ) )
+    		utils.wait( P.prop:seekColor( .6, .6, .6, .6, .1, EASE_IN ) )
+    		utils.wait( P.prop:seekColor( .8, .8, .8, .8, .1, EASE_OUT ) )
+    		utils.wait( P.prop:seekColor( .6, .6, .6, .6, .1, EASE_IN ) )
+    		utils.wait( P.prop:seekColor( .8, .8, .8, .8, .1, EASE_OUT ) )
+    		utils.wait( P.prop:seekColor( .6, .6, .6, .6, .1, EASE_IN ) )
+    		utils.wait( P.prop:seekColor( .8, .8, .8, .8, .1, EASE_OUT ) )
+    		utils.wait( P.prop:seekColor( .6, .6, .6, .6, .1, EASE_IN ) )
+    		utils.wait( P.prop:seekColor( 1, 1, 1, 1, .1 ) )
+
+		--end
 		M.changeFace()
 	end )
 
@@ -363,7 +368,6 @@ end
 function M.subLife( x )
 
 	P.life = P.life - x
-	game.doWorldDisturbance()
 
 	if P.life <= 0 then
 		game.gameOver()

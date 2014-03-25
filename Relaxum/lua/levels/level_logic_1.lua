@@ -47,19 +47,16 @@ local list = {
         borderColor = { 0, 0.4, 0, 0.4}
     },
 
-    --[[ Red Circle ]]--
+    --[[ Circle Bad ]]--
     {
-        type = "d_circle_bad",
+        type = "circle_bad",
         speedX = 0,
         y = "top",
-        minSpeedY = -7,
-        maxSpeedY = -20,
-        radius = 40,
-        border = 10,
-        points = 10,
-        color = { 1.00, 0.21, 0.17, 1 };
-        borderColor = { 0.6, 0.2, 0, 0.4}
-    }
+        minSpeedY = -1,
+        maxSpeedY = -5,
+        points = 10
+    },
+
 }
 
 M.init = function()
