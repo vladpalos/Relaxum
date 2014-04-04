@@ -45,7 +45,7 @@ function M.init()
 
 
 	ht_x, ht_y = MIN_X + 60, MAX_Y - 60
-	resources.newSprite( 'heart_bk', layer, ht_x, ht_y )
+	resources.newSprite( 'heart_bk', layer, ht_x + 2 , ht_y - 8 )
 	local heart = resources.newSprite( 'heart', layer, ht_x, ht_y )
 
 	ht_h = resources.getSpriteConfig( 'heart' ).spriteSourceSize.height
@@ -63,7 +63,7 @@ function M.init()
 
 	pb_x, pb_y =  MIN_X + 260, MAX_Y - 40
 
-	resources.newSprite( 'progress_bar_bk', layer, pb_x, pb_y )
+	resources.newSprite( 'progress_bar_bk', layer, pb_x, pb_y - 6 )
 
 	local progressBar = resources.newSprite( 'progress_bar', layer, pb_x, pb_y )
 

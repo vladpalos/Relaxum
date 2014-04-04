@@ -112,9 +112,9 @@ function M.loadData()
 	P.size = 50				-- Texture size
 	P.lineSize = 10
 
-	P.density = 0.5
+	P.density = 2
 	P.restitution = 0.6
-	P.linearDamping = 10
+	P.linearDamping = 2
 
 	-- Power up when the player touches and holds
 	P.power = 0
@@ -253,7 +253,6 @@ end
 function M._onCollision( ev, fixA, fixB, arbiter )
 	-- TODO Only on category or mask
     local vx, vy = P.body:getLinearVelocity()
-
     -- if obstacle the
     -- M.stop()
 	-- P.body:applyLinearImpulse( vx , vy )

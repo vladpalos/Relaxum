@@ -133,7 +133,7 @@ function M.enableDebug( delay, level )
 	local fpsThread = MOAIThread.new()
 	fpsThread:run( updateFPS )
 
-	repeatWithDelay( 1, 10000, checkMem, false )
+--4	repeatWithDelay( 1, 10000, checkMem, false )
 
 	if level and (type(level) == 'number') and level > 2 then
 		M.enableDebugLines()
@@ -199,7 +199,7 @@ function M.enableDebugLines()
 end
 
 function M.printDebugInfo()
-	checkMem( true )
+	--checkMem( true )
 	debugLoop()
 end
 

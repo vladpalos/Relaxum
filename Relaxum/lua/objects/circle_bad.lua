@@ -83,8 +83,7 @@ function M._onCollision( ev, fixA, fixB, arbiter )
     if bodyB.type == "player" then
         arbiter:setContactEnabled( false )
         local posX, posY = bodyA:getPosition()
-
-        player.hit( DAMAGE, -posX * 250000, -posY * 250000)
+        player.hit( DAMAGE, -posX * 2, -posY * 2)
     end
 end
 

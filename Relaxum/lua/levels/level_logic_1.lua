@@ -31,7 +31,8 @@ local list = {
         points = 10,
         color = { 0.7, 0.7, 0.7, 0.6 },
         borderColor = { 0.4, 0.4, 0.4, 0.4}
-    },
+    }
+    ,
 
     --[[ Green Circle ]]--
     {
@@ -75,7 +76,7 @@ end
 
 M.goTimeLine = function()
 
-    level.addTimedRandomObjects( 8000,
+    level.addTimedRandomObjects( 100,
                                  list,
                                  0, 1 )
 
