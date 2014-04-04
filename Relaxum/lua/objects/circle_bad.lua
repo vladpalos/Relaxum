@@ -10,7 +10,7 @@ local DAMAGE                    = 20
 
 local DEFAULT_POINTS            = 10
 
-local RADIUS                    = 60
+local RADIUS                    = 32
 local DEFAULT_VELOCITY          = 20
 
 
@@ -84,7 +84,7 @@ function M._onCollision( ev, fixA, fixB, arbiter )
         arbiter:setContactEnabled( false )
         local posX, posY = bodyA:getPosition()
 
-        player.hit( DAMAGE, -posX * 25, -posY * 25)
+        player.hit( DAMAGE, -posX * 250000, -posY * 250000)
     end
 end
 

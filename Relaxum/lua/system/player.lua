@@ -52,8 +52,8 @@ function initProps()
 	P.aimLineProp = display.newDrawing( layer, 0, 0, 3000, 3000, -- maybe
 		function( index, xOff, yOff, xFlip, yFlip )
 			MOAIGfxDevice.setPenColor( 0.2, 0.2, 0.2, 0.2 )
-			local size = 20
-			MOAIGfxDevice.setPenWidth( size )
+			MOAIGfxDevice.setPenWidth( P.lineSize )
+			MOAIGfxDevice.setPointSize( P.lineSize )
 			local bx, by = P.body:getPosition()
 			MOAIDraw.drawLine( bx, by, P.projX, P.projY )
 		end
@@ -105,13 +105,14 @@ function M.loadData()
 	P.score = 0
 	P.life = 100
 	P.lives = 3
-	P.speed = 8
+	P.speed = 4
 	P.objectsCount = 0
 
 	P.loaded = true
 	P.size = 50				-- Texture size
+	P.lineSize = 10
 
-	P.density = 50
+	P.density = 0.5
 	P.restitution = 0.6
 	P.linearDamping = 10
 
@@ -294,7 +295,10 @@ function M.hit( damage, vx, vy )
 
 		M.changeFace( "sad" )
 		--if damage < 30 then
+			
+			P.body:applyLinearImpulse( vx, vy )
 			P.body:setLinearVelocity( vx, vy )
+			
 			P.body:resetMassData()
 
     		utils.wait( P.prop:seekColor( .8, .8, .8, .8, .1, EASE_OUT ) )

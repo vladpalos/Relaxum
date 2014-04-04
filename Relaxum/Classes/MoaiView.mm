@@ -134,7 +134,7 @@ namespace MoaiInputDeviceSensorID {
 			AKUEnqueueTouchEvent (
 				MoaiInputDeviceID::DEVICE,
 				MoaiInputDeviceSensorID::TOUCH,
-				( int )touch, // use the address of the touch as a unique id
+				*( int * )touch, // use the address of the touch as a unique id
 				down,
 				p.x * [[ UIScreen mainScreen ] scale ],
 				p.y * [[ UIScreen mainScreen ] scale ]

@@ -36,7 +36,6 @@ function M.go()
 
 	level.go()
 
-
     --[[ DEBUG ]]--
 	if DEBUG > 1 then
 		player.getLayer():setBox2DWorld(display.getWorld())
