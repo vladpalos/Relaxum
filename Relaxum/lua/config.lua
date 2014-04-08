@@ -23,7 +23,21 @@ DEBUG                           = 0
 
 
 -- [[
--- GalaxyS
+-- Iphone 5s
+---------------------------------------------------------------------------------------------------
+SCREEN_WIDTH                    = 1136
+SCREEN_HEIGHT                   = 640
+
+SCREEN_UNITS_X                  = 1136
+SCREEN_UNITS_Y                  = 640
+
+DEVICE_WIDTH                    = 1136
+DEVICE_HEIGHT                   = 640
+-- ]]
+
+
+--[[
+-- Iphone 4
 ---------------------------------------------------------------------------------------------------
 SCREEN_WIDTH                    = 960
 SCREEN_HEIGHT                   = 640
@@ -34,25 +48,6 @@ SCREEN_UNITS_Y                  = 640
 DEVICE_WIDTH                    = 960
 DEVICE_HEIGHT                   = 640
 -- ]]
-
-
--- Iphone4
----------------------------------------------------------------------------------------------------
---[[
-SCREEN_WIDTH                    = 960
-SCREEN_HEIGHT                   = 640
-
-SCREEN_UNITS_X                  = SCREEN_WIDTH
-SCREEN_UNITS_Y                  = SCREEN_HEIGHT
-
-DEVICE_WIDTH                    = 960
-DEVICE_HEIGHT                   = 640
-
-local screenWidth = MOAIEnvironment.horizontalResolution or 320
-local screenHeight = MOAIEnvironment.verticalResolution or 480
-local viewScale = screenWidth >= 640 and 2 or 1
--- ]]
-
 
 -- General
 ---------------------------------------------------------------------------------------------------
